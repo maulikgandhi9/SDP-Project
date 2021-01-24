@@ -1,0 +1,51 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 13 Jan, 2021, 7:51:39 PM
+    Author     : maulik
+*/
+
+
+div h3{
+    color: cyan;
+    font-weight: bold;
+    font-size: 25px;
+}
+
+div span{
+    color:white;
+    margin-right: 300px;
+}
+nav a strong{
+    color:white;
+    margin-left: 400px;
+}
+nav a{
+    color:white;
+    margin-left: 25px;
+}
+
+ 
+nav span{
+    color:white;
+    float: none;
+    margin-left: 670px;
+    margin-bottom: 15px;
+}
+
+/*.admin .card:hover{
+    background: #e2e2e2;
+}*/
+
+div .card:hover{
+    background: #e2e2e2;
+    cursor: pointer;
+}
+
+.form-control{
+    margin-bottom: 25px;
+}
+

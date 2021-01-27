@@ -47,15 +47,17 @@ public class smailRequest extends HttpServlet {
             HttpSession session = request.getSession();
             String fname = (String) session.getAttribute("fname");
             String lname = (String) session.getAttribute("lname");
-            String email = (String) request.getParameter("d_email");
+            String d_email = (String) request.getParameter("d_email");
+            String requester_email = (String) session.getAttribute("email");
+
             Book b = new Book();
-            b.setB_name((String)request.getParameter("b_name"));
+            b.setB_name((String) request.getParameter("b_name"));
             sendMailRequest sm = new sendMailRequest();
 
-            User user = new User(fname, lname, email);
-            out.println(user.fname+" "+user.lname+" "+user.email);
+            User user = new User(fname, lname, requester_email,d_email);
+            out.println(user.fname + " " + user.lname + " " + user.email);
             try {
-                boolean test = sm.sendEmail(user,b);
+                boolean test = sm.sendEmail(user, b);
 //                  Exception e=sm.sendEmail(user);
                 if (test) {
 //                    HttpSession session = request.getSession();
@@ -65,8 +67,7 @@ public class smailRequest extends HttpServlet {
 
                     out.println("Your request has been sent");
                 }
-            }
-            catch(Exception e){
+            } catch (Exception e) {
 //                out.println(e);
             }
 

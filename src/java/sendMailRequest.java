@@ -11,7 +11,7 @@ public class sendMailRequest {
     public boolean sendEmail(User user, Book b) {
         boolean test = false;
         String toEmail;
-        toEmail = user.getEmail();
+        toEmail = user.getD_email();
 //        toEmail = "18ituos036@ddu.ac.in";
 
 

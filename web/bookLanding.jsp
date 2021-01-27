@@ -90,7 +90,12 @@
                             <form method="post" action="smailRequest">
                                 <input type="hidden" name="d_email" value="<%= b.getD_email()%>">
                                 <input type="hidden" name="b_name" value="<%= b.getB_name()%>">
-                                <input type="submit" class="btn btn-success" value="Want it"></input>
+                                <input type="hidden" name="b_id" value="<%= b.getB_id()%>">
+
+                                <div class="card">
+                                    <input type="submit" class="btn btn-success" value="Want it" onclick="return confirm('Are you sure you want to request?')"></input>
+                                           
+                                </div>
                             </form>
                         </div>
                     </div>

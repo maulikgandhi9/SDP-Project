@@ -64,9 +64,11 @@
                         </div>
 
                         <div class="card-footer text-center">
-                            <form method="post" action="smailRequest">
+                            <form method="post" action="deletePost">
                                 <input type="hidden" name="d_email" value="<%= b.getD_email()%>">
                                 <input type="hidden" name="b_name" value="<%= b.getB_name()%>">
+                                <input type="hidden" name="b_id" value="<%= b.getB_id()%>">
+                                <input type="hidden" name="category" value="book">
                                 <input type="submit" class="btn btn-danger" value="Delete this book"></input>
                             </form>
                         </div>

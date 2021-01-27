@@ -17,6 +17,7 @@ public class User {
     public String lname;
     public String email;
     public String code;
+    public String d_email;
     
 
     public User(String email, String code) {
@@ -24,10 +25,11 @@ public class User {
         this.code = code;
     }
 
-    public User(String fname, String lname,String email) {
+    public User(String fname, String lname,String email,String d_email) {
         this.fname = fname;
         this.lname = lname;
         this.email = email;
+        this.d_email=d_email;
     }
     
 
@@ -64,6 +66,14 @@ public class User {
 
     public void setLname(String lname) {
         this.lname = lname;
+    }
+
+    public String getD_email() {
+        return d_email;
+    }
+
+    public void setD_email(String d_email) {
+        this.d_email = d_email;
     }
 
     

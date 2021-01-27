@@ -43,50 +43,44 @@ public class bookOperationServlet extends HttpServlet {
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             HttpSession session = request.getSession();
-            String op=request.getParameter("operation");
-            
-            if(op.trim().equals("addbook")){
-                String b_name = (String)request.getParameter("b_name");
-                String b_desc = (String)request.getParameter("b_desc");
+            String op = request.getParameter("operation");
+
+            if (op.trim().equals("addbook")) {
+                String b_name = (String) request.getParameter("b_name");
+                String b_desc = (String) request.getParameter("b_desc");
                 Part part = request.getPart("bPic");
-                String email = (String)session.getAttribute("email");
-                
+                String email = (String) session.getAttribute("email");
+
                 Book b = new Book();
                 b.setB_name(b_name);
                 b.setB_desc(b_desc);
                 b.setD_email(email);
                 b.setB_image(part.getSubmittedFileName());
-                
+
                 bookDAO bd = new bookDAO(FactoryProvider.getFactory());
                 bd.saveBook(b);
-                String path = request.getRealPath("/")+ part.getSubmittedFileName();
-                
-                try{
-                    
-                
-                FileOutputStream fos= new FileOutputStream(path);
-                InputStream is = part.getInputStream();
-                
-                //reading data from part
-                byte data[] = new byte[is.available()];
-                is.read(data);
-                
-                //writing the data
-                
-                fos.write(data);
-                fos.close();
-                }catch(Exception e){
+                String path = request.getRealPath("/") + part.getSubmittedFileName();
+
+                try {
+
+                    FileOutputStream fos = new FileOutputStream(path);
+                    InputStream is = part.getInputStream();
+
+                    //reading data from part
+                    byte data[] = new byte[is.available()];
+                    is.read(data);
+
+                    //writing the data
+                    fos.write(data);
+                    fos.close();
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
-//                out.println(path);
-                out.println("Book Uploaded successfully!");
+
                 out.println("<html><head> <link rel=\"stylesheet\" href=\"https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css\">\n"
-                    + "</head><body>");
-            out.println("<h1 align=\"center\">Book Uploaded successfully!</h1>");
-//            out.println("<div style=\"width:150px; margin:0 auto;\"><button type=\"button\" onclick=\"window.location.href='index.html';\" class=\"btn btn-primary\">Click here to login</button></div>");
-//                      out.println("<style>");
-//                      out.println("");
-            out.println("</body></html>");
+                        + "</head><body>");
+                out.println("<h1 align=\"center\">Book Uploaded successfully!</h1>");
+                out.println("</body></html>");
             }
         }
     }

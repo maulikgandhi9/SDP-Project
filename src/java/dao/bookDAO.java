@@ -32,10 +32,10 @@ public class bookDAO {
             session.save(book);
             tx.commit();
             session.close();
-            flag=true;
+            flag = true;
         } catch (Exception e) {
             e.printStackTrace();
-            flag=false;
+            flag = false;
         }
         return flag;
     }

@@ -5,44 +5,50 @@
  */
 
 
-var getbtn_book=document.getElementById("getbtn_book");
-var getbtn_equ=document.getElementById("getbtn_equ");
+var getbtn_book = document.getElementsByClassName("getbtn_book");
+for (let i of getbtn_book) {
+
+    i.addEventListener('click', function () {
+        swal({
+            title: "Are you sure?",
+            text: "Once requested, you will not be able to undo the request!",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+        })
+
+                .then((willDelete) => {
+                    if (willDelete) {
+                        var form = document.getElementById("bookRequest");
+                        form.submit();
+                    } else {
+
+                    }
+                });
+    });
+}
+var getbtn_equ = document.getElementsByClassName("getbtn_equ");
 
 
-getbtn_book.addEventListener('click', function(){
-   swal({
-  title: "Are you sure?",
-  text: "Once requested, you will not be able to undo the request!",
-  icon: "warning",
-  buttons: true,
-  dangerMode: true,
-}) 
 
-.then((willDelete) => {
-  if (willDelete) {
-        var form = document.getElementById("bookRequest");
-        form.submit();
-  } else {
-    
-  }
+for (let i of getbtn_equ) {
+
+    i.addEventListener('click', function () {
+    swal({
+        title: "Are you sure?",
+        text: "Once requested, you will not be able to undo the request!",
+        icon: "warning",
+        buttons: true,
+        dangerMode: true,
+    })
+
+            .then((willDelete) => {
+                if (willDelete) {
+                    var form = document.getElementById("equRequest");
+                    form.submit();
+                } else {
+
+                }
+            });
 });
-});
-
-getbtn_equ.addEventListener('click', function(){
-   swal({
-  title: "Are you sure?",
-  text: "Once requested, you will not be able to undo the request!",
-  icon: "warning",
-  buttons: true,
-  dangerMode: true,
-}) 
-
-.then((willDelete) => {
-  if (willDelete) {
-        var form = document.getElementById("equRequest");
-        form.submit();
-  } else {
-    
-  }
-});
-});
+}

@@ -82,13 +82,20 @@
                     </div>
                 </div>
             </div>
-            
+          
+            <!--<div class="btn-group" style="width:100%">-->
+                <!--<button class="btn btn-outline-danger active"style="width:50%">Books</button>-->
+                <!--<button class="btn btn-outline-danger"style="width:50%">Equipments</button>-->
+            <!--</div>-->
             <%
                 bookDAO bd = new bookDAO(FactoryProvider.getFactory());
                 List<Book> b_list = bd.getBooks();
             %>
-            <div class="row mt-3 mx-2">
-                
+            <!-- <div class="row mt-3 mx-2">-->
+
+
+            <div class="row">
+
                 <%
                     for (Book b : b_list) {
                         if (!b.getD_email().equals(session.getAttribute("email"))) {
@@ -112,7 +119,7 @@
 
                                 <div class="card">
                                     <!--<input type="submit" class="btn btn-success" value="Want it" onclick=" return swal('Confirmation' ,'Are you sure you want to request?',{buttons: ['Oh noez!', 'Aww yiss!'],})"></input>-->
-                                    <input type="button" class="btn btn-success" id="getbtn_book" value="Want it"></input>
+                                    <input type="button" class="btn btn-success getbtn_book"  value="Want it"></input>
 
 
                                 </div>
@@ -153,7 +160,7 @@
 
                                 <div class="card">
                                     <!--<input type="submit" class="btn btn-success" value="Want it" onclick=" return swal('Confirmation' ,'Are you sure you want to request?',{buttons: ['Oh noez!', 'Aww yiss!'],})"></input>-->
-                                    <input type="button" class="btn btn-success" id="getbtn_equ" value="Want it"></input>
+                                    <input type="button" class="btn btn-success getbtn_equ"  value="Want it"></input>
 
 
                                 </div>
@@ -166,8 +173,9 @@
                         }
                     }
                 %>
-            </div>
+                <!--</div>-->
 
+            </div>
 
 
 

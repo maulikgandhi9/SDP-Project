@@ -5,7 +5,9 @@
  */
 
 import dao.bookDAO;
+import dao.equipmentDAO;
 import entities.Book;
+import entities.Equipment;
 import helper.FactoryProvider;
 import java.io.File;
 import java.io.FileInputStream;
@@ -80,6 +82,44 @@ public class bookOperationServlet extends HttpServlet {
                 out.println("<html><head> <link rel=\"stylesheet\" href=\"https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css\">\n"
                         + "</head><body>");
                 out.println("<h1 align=\"center\">Book Uploaded successfully!</h1>");
+                out.println("</body></html>");
+            }
+            
+            else if(op.trim().equals("addequipment")){
+                String e_name = (String) request.getParameter("e_name");
+                String e_desc = (String) request.getParameter("e_desc");
+                Part part = request.getPart("ePic");
+                String email = (String) session.getAttribute("email");
+
+                Equipment equ = new Equipment();
+                equ.setE_name(e_name);
+                equ.setE_desc(e_desc);
+                equ.setD_email(email);
+                equ.setE_image(part.getSubmittedFileName());
+
+                equipmentDAO ed = new equipmentDAO(FactoryProvider.getFactory());
+                ed.saveEquipment(equ);
+                String path = request.getRealPath("/") + part.getSubmittedFileName();
+                
+                try {
+
+                    FileOutputStream fos = new FileOutputStream(path);
+                    InputStream is = part.getInputStream();
+
+                    //reading data from part
+                    byte data[] = new byte[is.available()];
+                    is.read(data);
+
+                    //writing the data
+                    fos.write(data);
+                    fos.close();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+                out.println("<html><head> <link rel=\"stylesheet\" href=\"https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css\">\n"
+                        + "</head><body>");
+                out.println("<h1 align=\"center\">Equipment Uploaded successfully!</h1>");
                 out.println("</body></html>");
             }
         }

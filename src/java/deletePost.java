@@ -6,6 +6,7 @@
 
 import dao.bookDAO;
 import entities.Book;
+import entities.Equipment;
 import helper.FactoryProvider;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -42,11 +43,13 @@ public class deletePost extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
+
             Class.forName("com.mysql.jdbc.Driver");
 
             Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/app?zeroDateTimeBehavior=convertToNull", "root", "");
 
-            String category = request.getParameter("category");
+            String category = (String) request.getParameter("category");
+            out.println(category);
             if (category.equals("book")) {
                 String query = "delete from app.book where b_id=?";
                 Book b = new Book();
@@ -60,6 +63,21 @@ public class deletePost extends HttpServlet {
                     out.println("Your book has been deleted");
                 } catch (Exception e) {
                     e.printStackTrace();
+                }
+            } else if (category.equals("equipment")) {
+                String query = "delete from app.equipment where e_id=?";
+                Equipment e = new Equipment();
+
+                e.setE_id(Integer.parseInt(request.getParameter("e_id")));
+
+                PreparedStatement pst = con.prepareStatement(query);
+                pst.setInt(1, Integer.parseInt(request.getParameter("e_id")));
+                try {
+                    pst.executeUpdate();
+                    out.println("Your equipment has been deleted");
+                } catch (SQLException ex) {
+                    out.println(ex);
+                    ex.printStackTrace();
                 }
             }
 

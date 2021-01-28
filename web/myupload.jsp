@@ -73,7 +73,7 @@
                                 <input type="hidden" name="b_name" value="<%= b.getB_name()%>">
                                 <input type="hidden" name="b_id" value="<%= b.getB_id()%>">
                                 <input type="hidden" name="category" value="book">
-                                <input type="button" class="btn btn-danger" id="delBook" value="Delete this Book"></input>
+                                <input type="button" class="btn btn-danger delBook" value="Delete this Book"></input>
 
                                 <!--<input type="button" onclick="return confirm('Are you sure you want to delete this book?')" class="btn btn-danger" value="Delete this book"></input>-->
                             </form>
@@ -113,7 +113,7 @@
 
                                 <div class="card">
                                     <!--<input type="submit" class="btn btn-success" value="Want it" onclick=" return swal('Confirmation' ,'Are you sure you want to request?',{buttons: ['Oh noez!', 'Aww yiss!'],})"></input>-->
-                                    <input type="button" class="btn btn-danger" id="delEqu" value="Delete this Equipment"></input>
+                                    <input type="button" class="btn btn-danger delEqu" value="Delete this Equipment"></input>
 
 
                                 </div>

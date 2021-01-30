@@ -46,4 +46,12 @@ public class bookDAO {
         List<Book> list = query.list();
         return list;
     }
+
+    public void deleteBook(Book book) {
+        Session session = this.factory.openSession();
+        Transaction tx = session.beginTransaction();
+        session.delete(book);
+        tx.commit();
+        session.close();
+    }
 }

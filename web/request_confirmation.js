@@ -9,22 +9,23 @@ var getbtn_book = document.getElementsByClassName("getbtn_book");
 for (let i of getbtn_book) {
 
     i.addEventListener('click', function () {
+        console.log(i);
+        console.log(i.id)
         swal({
             title: "Are you sure?",
             text: "Once requested, you will not be able to undo the request!",
             icon: "warning",
             buttons: true,
             dangerMode: true,
-        })
+        }).then((willDelete) => {
+            if (willDelete) {
+                var form = document.getElementById(i.id);
+                debugger;
+                form.submit();
+            } else {
 
-                .then((willDelete) => {
-                    if (willDelete) {
-                        var form = document.getElementById("bookRequest");
-                        form.submit();
-                    } else {
-
-                    }
-                });
+            }
+        });
     });
 }
 var getbtn_equ = document.getElementsByClassName("getbtn_equ");
@@ -40,15 +41,12 @@ for (let i of getbtn_equ) {
         icon: "warning",
         buttons: true,
         dangerMode: true,
+    }).then((willDelete) => {
+        if (willDelete) {
+            var form = document.getElementById(i.id);
+                debugger;
+            form.submit();
+        }
     })
-
-            .then((willDelete) => {
-                if (willDelete) {
-                    var form = document.getElementById("equRequest");
-                    form.submit();
-                } else {
-
-                }
-            });
 });
 }

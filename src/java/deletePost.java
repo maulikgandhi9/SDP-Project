@@ -5,6 +5,7 @@
  */
 
 import dao.bookDAO;
+import dao.equipmentDAO;
 import entities.Book;
 import entities.Equipment;
 import helper.FactoryProvider;
@@ -49,36 +50,48 @@ public class deletePost extends HttpServlet {
             Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/app?zeroDateTimeBehavior=convertToNull", "root", "");
 
             String category = (String) request.getParameter("category");
-            out.println(category);
+//            out.println(category);
             if (category.equals("book")) {
-                String query = "delete from app.book where b_id=?";
+//                String query = "delete from app.book where b_id=?";
                 Book b = new Book();
                 b.setB_id(Integer.parseInt(request.getParameter("b_id")));
-
-                PreparedStatement pst = con.prepareStatement(query);
-                pst.setInt(1, Integer.parseInt(request.getParameter("b_id")));
+                b.setB_desc(request.getParameter("b_desc"));
+                b.setB_image(request.getParameter("b_image"));
+                b.setB_name(request.getParameter("b_name"));
+                b.setD_email(request.getParameter("d_email"));
+//                PreparedStatement pst = con.prepareStatement(query);
+//                pst.setInt(1, Integer.parseInt(request.getParameter("b_id")));
                 try {
-                    pst.executeUpdate();
-
-                    out.println("Your book has been deleted");
+//                    pst.executeUpdate();
+//                    out.println(request.getParameter("b_id"));
+                      bookDAO bd = new bookDAO(FactoryProvider.getFactory());
+                      bd.deleteBook(b);
+                    out.println("<html><head> <link rel=\"stylesheet\" href=\"https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css\">\n"
+                            + "</head><body>");
+                    out.println("<h1 align=\"center\">Your book has been deleted</h1>");
+                    out.println("</body></html>");
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
             } else if (category.equals("equipment")) {
-                String query = "delete from app.equipment where e_id=?";
+//                String query = "delete from app.equipment where e_id=?";
                 Equipment e = new Equipment();
 
                 e.setE_id(Integer.parseInt(request.getParameter("e_id")));
+                e.setD_email(request.getParameter("d_email"));
+                e.setE_desc(request.getParameter("e_desc"));
+                e.setE_image(request.getParameter("e_image"));
+                e.setE_name(request.getParameter("e_name"));
+//                PreparedStatement pst = con.prepareStatement(query);
+//                pst.setInt(1, Integer.parseInt(request.getParameter("e_id")));
+//                pst.executeUpdate();
 
-                PreparedStatement pst = con.prepareStatement(query);
-                pst.setInt(1, Integer.parseInt(request.getParameter("e_id")));
-                try {
-                    pst.executeUpdate();
-                    out.println("Your equipment has been deleted");
-                } catch (SQLException ex) {
-                    out.println(ex);
-                    ex.printStackTrace();
-                }
+                equipmentDAO ed = new equipmentDAO(FactoryProvider.getFactory());
+                ed.deleteEquipment(e);
+                out.println("<html><head> <link rel=\"stylesheet\" href=\"https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css\">\n"
+                        + "</head><body>");
+                out.println("<h1 align=\"center\">Your equipment has been deleted</h1>");
+                out.println("</body></html>");
             }
 
         }

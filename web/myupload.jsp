@@ -67,13 +67,15 @@
                             <p class="card-text"><%= Helper.get20Words(b.getB_desc())%></p>
                         </div>
 
-                        <div class="card-footer text-center" id="bookDelete">
-                            <form method="post" action="deletePost">
+                        <div class="card-footer text-center" >
+                            <form method="post" action="deletePost" id="<%= b.getB_id()%>">
                                 <input type="hidden" name="d_email" value="<%= b.getD_email()%>">
                                 <input type="hidden" name="b_name" value="<%= b.getB_name()%>">
+                                <input type="hidden" name="b_desc" value="<%= b.getB_desc()%>">
                                 <input type="hidden" name="b_id" value="<%= b.getB_id()%>">
+                                <input type="hidden" name="b_image" value="<%= b.getB_image()%>">
                                 <input type="hidden" name="category" value="book">
-                                <input type="button" class="btn btn-danger delBook" value="Delete this Book"></input>
+                                <input type="button" class="btn btn-danger delBook" id="<%= b.getB_id()%>" value="Delete this Book"></input>
 
                                 <!--<input type="button" onclick="return confirm('Are you sure you want to delete this book?')" class="btn btn-danger" value="Delete this book"></input>-->
                             </form>
@@ -104,16 +106,18 @@
                         </div>
 
                         <div class="card-footer text-center">
-                            <form method="post" action="deletePost" id="equDelete">
+                            <form method="post" action="deletePost" id="<%= e.getE_id()%>">
                                 <input type="hidden" name="d_email" value="<%= e.getD_email()%>">
+                                <input type="hidden" name="e_desc" value="<%= e.getE_desc()%>">
                                 <input type="hidden" name="e_name" value="<%= e.getE_name()%>">
                                 <input type="hidden" name="e_id" value="<%= e.getE_id()%>">
+                                <input type="hidden" name="e_image" value="<%= e.getE_image()%>">
                                 <input type="hidden" name="category" value="equipment">
 
 
                                 <div class="card">
                                     <!--<input type="submit" class="btn btn-success" value="Want it" onclick=" return swal('Confirmation' ,'Are you sure you want to request?',{buttons: ['Oh noez!', 'Aww yiss!'],})"></input>-->
-                                    <input type="button" class="btn btn-danger delEqu" value="Delete this Equipment"></input>
+                                    <input type="button" class="btn btn-danger delEqu" id="<%= e.getE_id()%>" value="Delete this Equipment"></input>
 
 
                                 </div>

@@ -49,5 +49,7 @@ Contributor(s):
         <property name="show_sql">true</property>
         <mapping class="entities.Book"/>
         <mapping class="entities.Equipment"/>
+        <mapping class="entities.Request"/>
+
     </session-factory>
 </hibernate-configuration>

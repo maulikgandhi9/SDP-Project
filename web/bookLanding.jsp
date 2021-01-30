@@ -52,6 +52,8 @@
             </div>
             <div class="nav bavbar-nav">
                 <a href="myupload.jsp" value="My uploads" style="margin-left: 1325px; margin-top: -70px; color: white; text-decoration: underline">My Uploads</a>
+                <a href="myrequest.jsp" value="My Requests" style="margin-left: -85px; margin-top: -20px; color: white; text-decoration: underline">My Requests</a>
+
             </div>
 
 
@@ -82,10 +84,10 @@
                     </div>
                 </div>
             </div>
-          
+
             <!--<div class="btn-group" style="width:100%">-->
-                <!--<button class="btn btn-outline-danger active"style="width:50%">Books</button>-->
-                <!--<button class="btn btn-outline-danger"style="width:50%">Equipments</button>-->
+            <!--<button class="btn btn-outline-danger active"style="width:50%">Books</button>-->
+            <!--<button class="btn btn-outline-danger"style="width:50%">Equipments</button>-->
             <!--</div>-->
             <%
                 bookDAO bd = new bookDAO(FactoryProvider.getFactory());
@@ -111,7 +113,7 @@
                         </div>
 
                         <div class="card-footer text-center">
-                            <form method="post" action="smailRequest" id="bookRequest">
+                            <form method="post" action="smailRequest" id="<%= b.getB_id()%>">
                                 <input type="hidden" name="d_email" value="<%= b.getD_email()%>">
                                 <input type="hidden" name="b_name" value="<%= b.getB_name()%>">
                                 <input type="hidden" name="b_id" value="<%= b.getB_id()%>">
@@ -119,7 +121,7 @@
 
                                 <div class="card">
                                     <!--<input type="submit" class="btn btn-success" value="Want it" onclick=" return swal('Confirmation' ,'Are you sure you want to request?',{buttons: ['Oh noez!', 'Aww yiss!'],})"></input>-->
-                                    <input type="button" class="btn btn-success getbtn_book"  value="Want it"></input>
+                                    <input type="button" class="btn btn-success getbtn_book"  id="<%= b.getB_id()%>" value="Want it"></input>
 
 
                                 </div>
@@ -152,15 +154,13 @@
                         </div>
 
                         <div class="card-footer text-center">
-                            <form method="post" action="smailRequest" id="equRequest">
+                            <form method="post" action="smailRequest" id="<%= e.getE_id()%>">
                                 <input type="hidden" name="d_email" value="<%= e.getD_email()%>">
                                 <input type="hidden" name="b_name" value="<%= e.getE_name()%>">
                                 <input type="hidden" name="b_id" value="<%= e.getE_id()%>">
-                                <input type="hidden" name="key">
-
                                 <div class="card">
                                     <!--<input type="submit" class="btn btn-success" value="Want it" onclick=" return swal('Confirmation' ,'Are you sure you want to request?',{buttons: ['Oh noez!', 'Aww yiss!'],})"></input>-->
-                                    <input type="button" class="btn btn-success getbtn_equ"  value="Want it"></input>
+                                    <input type="button" class="btn btn-success getbtn_equ" id="<%= e.getE_id()%>"  value="Want it"></input>
 
 
                                 </div>

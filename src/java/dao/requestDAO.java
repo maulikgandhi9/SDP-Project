@@ -6,7 +6,7 @@
 package dao;
 
 import entities.Book;
-import entities.Equipment;
+import entities.Request;
 import java.util.List;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -17,20 +17,20 @@ import org.hibernate.Transaction;
  *
  * @author maulik
  */
-public class equipmentDAO {
+public class requestDAO {
 
     private SessionFactory factory;
 
-    public equipmentDAO(SessionFactory factory) {
+    public requestDAO(SessionFactory factory) {
         this.factory = factory;
     }
     
-    public boolean saveEquipment(Equipment equ) {
+    public boolean saveRequest(Request req) {
         boolean flag = false;
         try {
             Session session = this.factory.openSession();
             Transaction tx = session.beginTransaction();
-            session.save(equ);
+            session.saveOrUpdate(req);
             tx.commit();
             session.close();
             flag = true;
@@ -40,20 +40,11 @@ public class equipmentDAO {
         }
         return flag;
     }
-    
-    
-    public List<Equipment> getEquipments() {
+
+     public List<Request> getRequests() {
         Session s = this.factory.openSession();
-        Query query = s.createQuery("from Equipment");
-        List<Equipment> list = query.list();
+        Query query = s.createQuery("from Request");
+        List<Request> list = query.list();
         return list;
-    }
-    
-    public void deleteEquipment(Equipment e) {
-        Session session = this.factory.openSession();
-        Transaction tx = session.beginTransaction();
-        session.delete(e);
-        tx.commit();
-        session.close();
     }
 }

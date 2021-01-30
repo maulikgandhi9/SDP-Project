@@ -6,7 +6,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+import dao.requestDAO;
 import entities.Book;
+import entities.Request;
+import helper.FactoryProvider;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
@@ -14,6 +17,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
@@ -54,21 +58,53 @@ public class smailRequest extends HttpServlet {
             b.setB_name((String) request.getParameter("b_name"));
             sendMailRequest sm = new sendMailRequest();
 
-            User user = new User(fname, lname, requester_email,d_email);
-            out.println(user.fname + " " + user.lname + " " + user.email);
-            try {
-                boolean test = sm.sendEmail(user, b);
+            User user = new User(fname, lname, requester_email, d_email);
+            out.println(".");
+
+            requestDAO rdao = new requestDAO(FactoryProvider.getFactory());
+            List<Request> req_list = rdao.getRequests();
+            boolean flag = false;
+
+            for (Request req : req_list) {
+                if (req.getR_email().equals(requester_email) && req.getRes_name().equals(b.getB_name()) && req.getReq_status().equalsIgnoreCase("pending")) {
+                    flag = true;
+                    break;
+                }
+            }
+            if (flag) {
+                out.println("<script src='https://unpkg.com/sweetalert/dist/sweetalert.min.js'></script>");
+                out.println("<script type=\"text/javascript\">");
+//                out.println("swal('Oops!','You have already requested for this resource','warning');");
+                  out.println("swal({"
+                          + "title: 'Oops!',"
+                          + "text: 'You have already requested for this resource',"
+                          + "icon: 'warning',})"
+                          + ".then(function(){"
+                          + "window.location.href='bookLanding.jsp'});");
+//                out.println("location='bookLanding.jsp';");
+                out.println("</script>");
+            } else {
+                try {
+                    boolean test = sm.sendEmail(user, b);
 //                  Exception e=sm.sendEmail(user);
-                if (test) {
+                    if (test) {
 //                    HttpSession session = request.getSession();
 //                    session.setAttribute("authcode", user);
 //                    response.sendRedirect("forgotVerify.jsp");
 //                    out.println(e);
+                        Request r = new Request();
+                        r.setRes_name(request.getParameter("b_name"));
+                        r.setD_email(d_email);
+                        r.setR_email(requester_email);
+                        r.setReq_status("pending");
 
-                    out.println("Your request has been sent");
-                }
-            } catch (Exception e) {
+                        requestDAO reqdao = new requestDAO(FactoryProvider.getFactory());
+                        reqdao.saveRequest(r);
+                        out.println("Your request has been sent");
+                    }
+                } catch (Exception e) {
 //                out.println(e);
+                }
             }
 
         }

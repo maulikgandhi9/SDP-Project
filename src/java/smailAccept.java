@@ -10,6 +10,13 @@ import entities.Request;
 import helper.FactoryProvider;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -32,7 +39,7 @@ public class smailAccept extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+            throws ServletException, IOException, ClassNotFoundException, SQLException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
@@ -42,7 +49,7 @@ public class smailAccept extends HttpServlet {
             String d_email = (String) request.getParameter("d_email");
             String requester_email = (String) request.getParameter("r_email");
             String category = (String) request.getParameter("category");
-            
+
             Request req = new Request();
             req.setReq_id(Integer.parseInt(request.getParameter("req_id")));
             req.setRes_name(request.getParameter("res_name"));
@@ -50,27 +57,48 @@ public class smailAccept extends HttpServlet {
             req.setR_email(requester_email);
             req.setCategory(category);
             req.setR_email(requester_email);
-            
+
             sendMailAccept sm = new sendMailAccept();
             User user = new User(fname, lname, requester_email, d_email);
-            out.println(req.getRes_name()+" "+req.getReq_id()+"<br>");
-            out.println(requester_email);
+//            out.println(req.getRes_name()+" "+req.getReq_id()+"<br>");
+//            out.println(requester_email);
             try {
                 boolean test = sm.sendEmail(user, req);
                 req.setReq_status("Accepted");
                 requestDAO rdao = new requestDAO(FactoryProvider.getFactory());
                 rdao.saveRequest(req);
-                
-                
+
                 if (test) {
-                    
-                    out.println("You have accepted the request for "+req.getRes_name());
+
+                    out.println("You have accepted the request for " + req.getRes_name() + "<br>");
                 }
-                    
+
             } catch (Exception e) {
             }
-            
-            
+            Class.forName("com.mysql.jdbc.Driver");
+
+            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/app?zeroDateTimeBehavior=convertToNull", "root", "");
+            if (category.equalsIgnoreCase("book")) {
+//                PreparedStatement p = con.prepareStatement(String.format("select b_id from app.book where b_name='%s' and d_email='%s'", req.getRes_name(), req.getD_email()));
+//                out.println("2");
+//                try {
+//                    ResultSet rs = p.executeQuery();
+//                }
+//                catch(Exception e){
+//                    out.println(e); 
+//                }
+//                int b_id = rs.getInt(1);
+//                out.println(b_id + "<br>");
+                String query = String.format("delete from app.book where b_name='%s' and d_email='%s'", req.getRes_name(), req.getD_email());
+                PreparedStatement pst = con.prepareStatement(query);
+//                pst.setString(1, req.getRes_name());
+//                pst.setString(2, req.getD_email());
+                
+//                out.println(req.getRes_name() + " " + req.getD_email() + "<br>");
+                out.println(query);
+//                out.println("1");
+                pst.executeUpdate();
+            }
 
         }
     }
@@ -87,7 +115,13 @@ public class smailAccept extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(smailAccept.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(smailAccept.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -101,7 +135,13 @@ public class smailAccept extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(smailAccept.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(smailAccept.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**

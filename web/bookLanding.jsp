@@ -117,8 +117,7 @@
                                 <input type="hidden" name="d_email" value="<%= b.getD_email()%>">
                                 <input type="hidden" name="b_name" value="<%= b.getB_name()%>">
                                 <input type="hidden" name="b_id" value="<%= b.getB_id()%>">
-                                <input type="hidden" name="key">
-
+                                <input type="hidden" name="category" value="book">
                                 <div class="card">
                                     <!--<input type="submit" class="btn btn-success" value="Want it" onclick=" return swal('Confirmation' ,'Are you sure you want to request?',{buttons: ['Oh noez!', 'Aww yiss!'],})"></input>-->
                                     <input type="button" class="btn btn-success getbtn_book"  id="<%= b.getB_id()%>" value="Want it"></input>
@@ -158,6 +157,7 @@
                                 <input type="hidden" name="d_email" value="<%= e.getD_email()%>">
                                 <input type="hidden" name="b_name" value="<%= e.getE_name()%>">
                                 <input type="hidden" name="b_id" value="<%= e.getE_id()%>">
+                                <input type="hidden" name="category" value="equipment">
                                 <div class="card">
                                     <!--<input type="submit" class="btn btn-success" value="Want it" onclick=" return swal('Confirmation' ,'Are you sure you want to request?',{buttons: ['Oh noez!', 'Aww yiss!'],})"></input>-->
                                     <input type="button" class="btn btn-success getbtn_equ" id="<%= e.getE_id()%>"  value="Want it"></input>

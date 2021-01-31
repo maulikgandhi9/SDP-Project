@@ -97,8 +97,9 @@ public class smailRequest extends HttpServlet {
                         r.setD_email(d_email);
                         r.setR_email(requester_email);
                         r.setReq_status("pending");
-
+                        r.setCategory(request.getParameter("category"));
                         requestDAO reqdao = new requestDAO(FactoryProvider.getFactory());
+                        out.println(r.getReq_id()+" "+r.getR_email()+" "+r.getD_email()+" "+r.getRes_name()+" "+r.getReq_status()+" "+r.getCategory());
                         reqdao.saveRequest(r);
                         out.println("Your request has been sent");
                     }

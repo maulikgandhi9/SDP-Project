@@ -6,8 +6,10 @@
 
 import dao.bookDAO;
 import dao.equipmentDAO;
+import dao.videoDAO;
 import entities.Book;
 import entities.Equipment;
+import entities.Video;
 import helper.FactoryProvider;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -58,19 +60,27 @@ public class deletePost extends HttpServlet {
                 b.setB_image(request.getParameter("b_image"));
                 b.setB_name(request.getParameter("b_name"));
                 b.setD_email(request.getParameter("d_email"));
-                String query = String.format("delete from app.request where res_name='%s' and d_email='%s' and req_status='%s'", b.getB_name(), b.getD_email(),"pending");
+                String query = String.format("delete from app.request where res_name='%s' and d_email='%s' and req_status='%s'", b.getB_name(), b.getD_email(), "pending");
                 PreparedStatement pst = con.prepareStatement(query);
 //                pst.setInt(1, Integer.parseInt(request.getParameter("b_id")));
                 try {
-                    pst.executeUpdate();
+//                    pst.executeUpdate();
 //                    out.println(request.getParameter("b_id"));
                     bookDAO bd = new bookDAO(FactoryProvider.getFactory());
                     bd.deleteBook(b);
 
-                    out.println("<html><head> <link rel=\"stylesheet\" href=\"https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css\">\n"
-                            + "</head><body>");
-                    out.println("<h1 align=\"center\">Your book has been deleted</h1>");
-                    out.println("</body></html>");
+                    out.println(".");
+                    out.println("<script src='https://unpkg.com/sweetalert/dist/sweetalert.min.js'></script>");
+                    out.println("<script type=\"text/javascript\">");
+//                out.println("swal('Oops!','You have already requested for this resource','warning');");
+                    out.println("swal({"
+                            + "title: 'Success!',"
+                            + "text: 'Book deleted Successfully',"
+                            + "icon: 'success',})"
+                            + ".then(function(){"
+                            + "window.location.href='myupload.jsp'});");
+//                out.println("location='bookLanding.jsp';");
+                    out.println("</script>");
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -83,17 +93,53 @@ public class deletePost extends HttpServlet {
                 e.setE_desc(request.getParameter("e_desc"));
                 e.setE_image(request.getParameter("e_image"));
                 e.setE_name(request.getParameter("e_name"));
-                String query = String.format("delete from app.request where res_name='%s' and d_email='%s' and req_status='%s'",e.getE_name(),e.getD_email(),"pending");
+                String query = String.format("delete from app.request where res_name='%s' and d_email='%s' and req_status='%s'", e.getE_name(), e.getD_email(), "pending");
 
                 PreparedStatement pst = con.prepareStatement(query);
 //                pst.setInt(1, Integer.parseInt(request.getParameter("e_id")));
-                pst.executeUpdate();
+//                pst.executeUpdate();
                 equipmentDAO ed = new equipmentDAO(FactoryProvider.getFactory());
                 ed.deleteEquipment(e);
-                out.println("<html><head> <link rel=\"stylesheet\" href=\"https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css\">\n"
-                        + "</head><body>");
-                out.println("<h1 align=\"center\">Your equipment has been deleted</h1>");
-                out.println("</body></html>");
+                out.println(".");
+                out.println("<script src='https://unpkg.com/sweetalert/dist/sweetalert.min.js'></script>");
+                out.println("<script type=\"text/javascript\">");
+//                out.println("swal('Oops!','You have already requested for this resource','warning');");
+                out.println("swal({"
+                        + "title: 'Success!',"
+                        + "text: 'Equipment deleted Successfully',"
+                        + "icon: 'success',})"
+                        + ".then(function(){"
+                        + "window.location.href='myupload.jsp'});");
+//                out.println("location='bookLanding.jsp';");
+                out.println("</script>");
+            }else if (category.equals("video")) {
+
+                Video v = new Video();
+
+                v.setV_id(Integer.parseInt(request.getParameter("v_id")));
+                v.setD_email(request.getParameter("d_email"));
+                v.setV_thumbnail(request.getParameter("v_image"));
+                v.setV_path(request.getParameter("v_path"));
+                v.setV_name(request.getParameter("v_name"));
+                String query = String.format("delete from app.video where v_name='%s' and d_email='%s' and v_path='%s' and v_thumbnail='%s'", v.getV_name(), v.getD_email(), v.getV_path(),v.getV_thumbnail());
+
+                PreparedStatement pst = con.prepareStatement(query);
+//                pst.setInt(1, Integer.parseInt(request.getParameter("e_id")));
+//                pst.executeUpdate();
+                videoDAO vd = new videoDAO(FactoryProvider.getFactory());
+                vd.deleteVideo(v);
+                out.println(".");
+                out.println("<script src='https://unpkg.com/sweetalert/dist/sweetalert.min.js'></script>");
+                out.println("<script type=\"text/javascript\">");
+//                out.println("swal('Oops!','You have already requested for this resource','warning');");
+                out.println("swal({"
+                        + "title: 'Success!',"
+                        + "text: 'Video deleted Successfully',"
+                        + "icon: 'success',})"
+                        + ".then(function(){"
+                        + "window.location.href='myupload.jsp'});");
+//                out.println("location='bookLanding.jsp';");
+                out.println("</script>");
             }
 
         }

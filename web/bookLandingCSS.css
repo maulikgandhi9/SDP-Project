@@ -8,44 +8,43 @@ and open the template in the editor.
     Author     : maulik
 */
 
-
-div h3{
-    color: cyan;
-    font-weight: bold;
-    font-size: 25px;
+@import url("https://fonts.googleapis.com/css?family=Lato:300,400,700|Pacifico");
+.navbar-brand{
+    color: red;
 }
 
-div span{
-    color:white;
-    margin-right: 300px;
-}
-nav a strong{
-    color:white;
-    margin-left: 400px;
-}
-nav a{
-    color:white;
-    margin-left: 25px;
+
+.navbar-inverse .navbar-brand{
+    font-family: 'Pacifico', cursive;
+    display: inline-block;
+    height: inherit;
+    left: 0;
+    line-height: inherit;
+    margin: 0;
+    padding: 0;
+    position: absolute;
+    top: 0;
+    color: #e5474b;
+    font-size: 1.75em;
+    text-transform: none;
+    font-weight: normal;
+    padding: 0;
 }
 
- 
-nav span{
-    color:white;
-    float: none;
-    margin-left: 670px;
-    margin-bottom: 15px;
+nav{
+   background:  #1c1c1c;
 }
-
-/*.admin .card:hover{
-    background: #e2e2e2;
-}*/
 
 div .card:hover{
     background: #e2e2e2;
     cursor: pointer;
 }
 
-.form-control{
-    margin-bottom: 25px;
+.nav-tabs{
+  background-color:#4cae4c;
+}
+.nav-link .active{
+     background-color: green !important;
 }
 
+nav .navbar .nav-item:hover .dropdown-menu{ display: block; }

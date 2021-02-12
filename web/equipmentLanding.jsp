@@ -15,7 +15,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Book Landing</title>
+        <title>Equipment Landing</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -96,7 +96,7 @@
                     </ul>
                 </div>
             </div>
-        </nav>  
+        </nav>
 
         <nav class="navbar bg-light navbar-toggleable-md">
             <div class="container">
@@ -107,14 +107,13 @@
                 <div class="collapse navbar-collapse navbar-collapse justify-content-md-center" id="navbarsExampleCenteredNav">
                     <ul class="nav nav-tabs">
                         <li class="nav-item">
-                            <a class="nav-link active" href="bookLanding.jsp">Books</a>
+                            <a class="nav-link" href="bookLanding.jsp">Books</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="equipmentLanding.jsp">Equipments</a>
+                            <a class="nav-link active" href="equipmentLanding.jsp">Equipments</a>
                         </li>
                         
                     </ul>
-                    
                 </div>
             </div>
         </nav>
@@ -123,9 +122,9 @@
         <!--</nav>-->
 
         <div class="container">
-<!--            <div class="row mt-3">
-                <div class="col-lg-12">
-                    <div class="card h-60" data-bs-toggle="modal" data-bs-target="#add-book-modal">
+            <!--<div class="row mt-3">-->
+<!--                <div class="col-lg-6">
+                    <div class="card" data-bs-toggle="modal" data-bs-target="#add-book-modal">
                         <div class="card-body text-center">
                             <div class="container">
                                 <img style="max-width: 200px; margin-left: -5px"class="img-fluid rounded-circle" src="plus.jpg" alt="add">
@@ -135,8 +134,8 @@
                         </div>
                     </div>
                 </div>-->
-<!--                <div class="col-lg-6">
-                    <div class="card" data-bs-toggle="modal" data-bs-target="#add-equipment-modal">
+<!--                <div class="col-lg-12">
+                    <div class="card h-60" data-bs-toggle="modal" data-bs-target="#add-equipment-modal">
                         <div class="card-body text-center">
                             <div class="container">
                                 <img style="max-width: 200px; margin-left: -5px"class="img-fluid rounded-circle" src="plus.jpg" alt="add">
@@ -152,38 +151,45 @@
             <!--<button class="btn btn-outline-danger active"style="width:50%">Books</button>-->
             <!--<button class="btn btn-outline-danger"style="width:50%">Equipments</button>-->
             <!--</div>-->
-            <%
-                bookDAO bd = new bookDAO(FactoryProvider.getFactory());
-                List<Book> b_list = bd.getBooks();
-            %>
+            
             <!-- <div class="row mt-3 mx-2">-->
 
 
             <div class="row">
 
+                
+                
+
                 <%
-                    for (Book b : b_list) {
-                        if (!b.getD_email().equals(session.getAttribute("email"))) {
+
+                    equipmentDAO ed = new equipmentDAO(FactoryProvider.getFactory());
+                    List<Equipment> e_list = ed.getEquipments();
                 %>
-                <div class="col-lg-4">
+
+                <%
+                    for (Equipment e : e_list) {
+                        if (!e.getD_email().equals(session.getAttribute("email"))) {
+                %>
+
+                <div class="col-lg-4 mt-4">
                     <div class="card mt-4 mb-2 h-100">
                         <div class="container text-center">
-                            <img src="<%= b.getB_image()%>" style="max-height: 350px; max-width: 100%; width: auto" class="card-image-top" alt="<%= b.getB_name()%>">
+                            <img src="<%= e.getE_image()%>" style="max-height: 350px; max-width: 100%; width: auto" class="card-image-top" alt="<%= e.getE_name()%>">
                         </div> 
                         <div class="card-body">
-                            <h5 class="card-title"><%= b.getB_name()%></h5>
-                            <p class="card-text"><%= Helper.get20Words(b.getB_desc())%></p>
+                            <h5 class="card-title"><%= e.getE_name()%></h5>
+                            <p class="card-text"><%= Helper.get20Words(e.getE_desc())%></p>
                         </div>
 
                         <div class="card-footer text-center">
-                            <form method="post" action="smailRequest" id="<%= b.getB_id()%>">
-                                <input type="hidden" name="d_email" value="<%= b.getD_email()%>">
-                                <input type="hidden" name="b_name" value="<%= b.getB_name()%>">
-                                <input type="hidden" name="b_id" value="<%= b.getB_id()%>">
-                                <input type="hidden" name="category" value="book">
+                            <form method="post" action="smailRequest" id="<%= e.getE_id()%>">
+                                <input type="hidden" name="d_email" value="<%= e.getD_email()%>">
+                                <input type="hidden" name="b_name" value="<%= e.getE_name()%>">
+                                <input type="hidden" name="b_id" value="<%= e.getE_id()%>">
+                                <input type="hidden" name="category" value="equipment">
                                 <div class="card">
                                     <!--<input type="submit" class="btn btn-success" value="Want it" onclick=" return swal('Confirmation' ,'Are you sure you want to request?',{buttons: ['Oh noez!', 'Aww yiss!'],})"></input>-->
-                                    <input type="button" class="btn btn-success getbtn_book"  id="<%= b.getB_id()%>" value="Want it"></input>
+                                    <input type="button" class="btn btn-success getbtn_equ" id="<%= e.getE_id()%>"  value="Want it"></input>
 
 
                                 </div>
@@ -193,12 +199,9 @@
                 </div>
 
                 <%
-
                         }
                     }
                 %>
-
-                
                 <!--</div>-->
 
             </div>

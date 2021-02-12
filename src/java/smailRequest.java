@@ -75,12 +75,12 @@ public class smailRequest extends HttpServlet {
                 out.println("<script src='https://unpkg.com/sweetalert/dist/sweetalert.min.js'></script>");
                 out.println("<script type=\"text/javascript\">");
 //                out.println("swal('Oops!','You have already requested for this resource','warning');");
-                  out.println("swal({"
-                          + "title: 'Oops!',"
-                          + "text: 'You have already requested for this resource',"
-                          + "icon: 'warning',})"
-                          + ".then(function(){"
-                          + "window.location.href='bookLanding.jsp'});");
+                out.println("swal({"
+                        + "title: 'Oops!',"
+                        + "text: 'You have already requested for this resource',"
+                        + "icon: 'warning',})"
+                        + ".then(function(){"
+                        + "window.location.href='bookLanding.jsp'});");
 //                out.println("location='bookLanding.jsp';");
                 out.println("</script>");
             } else {
@@ -99,9 +99,20 @@ public class smailRequest extends HttpServlet {
                         r.setReq_status("pending");
                         r.setCategory(request.getParameter("category"));
                         requestDAO reqdao = new requestDAO(FactoryProvider.getFactory());
-                        out.println(r.getReq_id()+" "+r.getR_email()+" "+r.getD_email()+" "+r.getRes_name()+" "+r.getReq_status()+" "+r.getCategory());
+//                        out.println(r.getReq_id() + " " + r.getR_email() + " " + r.getD_email() + " " + r.getRes_name() + " " + r.getReq_status() + " " + r.getCategory());
                         reqdao.saveRequest(r);
-                        out.println("Your request has been sent");
+//                        out.println("Your request has been sent");
+                        out.println("<script src='https://unpkg.com/sweetalert/dist/sweetalert.min.js'></script>");
+                        out.println("<script type=\"text/javascript\">");
+//                out.println("swal('Oops!','You have already requested for this resource','warning');");
+                        out.println("swal({"
+                                + "title: 'Success!',"
+                                + "text: 'You have successfully requested for this resource',"
+                                + "icon: 'success',})"
+                                + ".then(function(){"
+                                + "window.location.href='bookLanding.jsp'});");
+//                out.println("location='bookLanding.jsp';");
+                        out.println("</script>");
                     }
                 } catch (Exception e) {
 //                out.println(e);

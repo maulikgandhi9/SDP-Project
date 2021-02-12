@@ -50,5 +50,7 @@ Contributor(s):
         <mapping class="entities.Book"/>
         <mapping class="entities.Equipment"/>
         <mapping class="entities.Request"/>
+        <mapping class="entities.Video"/>
+
     </session-factory>
 </hibernate-configuration>

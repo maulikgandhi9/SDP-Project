@@ -7,8 +7,11 @@ and open the template in the editor.
     Created on : 13 Jan, 2021, 7:51:39 PM
     Author     : maulik
 */
+@import url("https://fonts.googleapis.com/css?family=Lato:300,400,700|Pacifico");
 
-
+body{
+    background: wheat;
+}
 div h3{
     color: cyan;
     font-weight: bold;
@@ -20,12 +23,38 @@ nav a{
     margin-right: 25px;
 }
 
-nav span{
-    float: none;
-    margin-left: 550px;
+
+
+.navbar-brand{
+    color: red;
 }
 
-div button{
-    align-items: center;
-    justify-content: center;
+
+.navbar-inverse .navbar-brand{
+    font-family: 'Pacifico', cursive;
+    display: inline-block;
+    height: inherit;
+    left: 0;
+    line-height: inherit;
+    margin: 0;
+    padding: 0;
+    position: absolute;
+    top: 0;
+    color: #e5474b;
+    font-size: 1.75em;
+    text-transform: none;
+    font-weight: normal;
+    padding: 0;
 }
+
+nav{
+    background:  #1c1c1c;
+}
+
+/*.navbar-inverse .navbar-brand {
+    color: #e5474b;
+}*/
+
+/*nav div .collapse{
+    margin-left: 2000px;
+}*/

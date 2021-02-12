@@ -4,6 +4,8 @@
     Author     : maulik
 --%>
 
+<%@page import="entities.Video"%>
+<%@page import="dao.videoDAO"%>
 <%@page import="dao.equipmentDAO"%>
 <%@page import="entities.Equipment"%>
 <%@page import="helper.Helper"%>
@@ -46,18 +48,7 @@
 //   HttpSession session = request.getSession();
             String name = (String) session.getAttribute("fname") + " " + (String) session.getAttribute("lname");
         %>
-        <!--<nav class="navbar navbar-dark bg-dark">-->
-        <!--<a class="navbar-brand" href="welcomePage.jsp">Generosity</a>-->
 
-        <!--<div class="nav navbar-nav navbar-right">-->
-        <!--<a href="index.html" class="navbar-brand"><strong>Logout</strong></a>-->
-        <!--</div>-->
-        <!--<div class="nav navbar-nav navbar-center">-->
-            <!--<span id="welcomeMessage">Hello, <%=name%></span>-->
-        <!--</div>-->
-        <!--<div class="nav bavbar-nav">-->
-        <!--<a href="myupload.jsp" value="My uploads" style="margin-left: 1325px; margin-top: -70px; color: white; text-decoration: underline">My Uploads</a>-->
-        <!--<a href="myrequest.jsp" value="My Requests" style="margin-left: -85px; margin-top: -20px; color: white; text-decoration: underline">My Requests</a>-->
 
         <!--</div>-->
         <nav class="navbar navbar-inverse navbar-toggleable-md">
@@ -96,109 +87,48 @@
                     </ul>
                 </div>
             </div>
-        </nav>  
-
-        <nav class="navbar bg-light navbar-toggleable-md">
-            <div class="container">
-                <!--                <a class="navbar-brand" href="#">Center nav</a>
-                                <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarsExampleCenteredNav" aria-controls="navbarsExampleCenteredNav" aria-expanded="false" aria-label="Toggle navigation">
-                                    <span class="navbar-toggler-icon"></span>
-                                </button>    -->
-                <div class="collapse navbar-collapse navbar-collapse justify-content-md-center" id="navbarsExampleCenteredNav">
-                    <ul class="nav nav-tabs">
-                        <li class="nav-item">
-                            <a class="nav-link active" href="bookLanding.jsp">Books</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="equipmentLanding.jsp">Equipments</a>
-                        </li>
-                        
-                    </ul>
-                    
-                </div>
-            </div>
         </nav>
+
+
 
 
         <!--</nav>-->
 
         <div class="container">
-<!--            <div class="row mt-3">
-                <div class="col-lg-12">
-                    <div class="card h-60" data-bs-toggle="modal" data-bs-target="#add-book-modal">
-                        <div class="card-body text-center">
-                            <div class="container">
-                                <img style="max-width: 200px; margin-left: -5px"class="img-fluid rounded-circle" src="plus.jpg" alt="add">
-                            </div>
-                            <p class="mt-2">Click here to upload a book!</p>
-                            <h1 class="text-uppercase text-muted">Books</h1>
-                        </div>
-                    </div>
-                </div>-->
-<!--                <div class="col-lg-6">
-                    <div class="card" data-bs-toggle="modal" data-bs-target="#add-equipment-modal">
-                        <div class="card-body text-center">
-                            <div class="container">
-                                <img style="max-width: 200px; margin-left: -5px"class="img-fluid rounded-circle" src="plus.jpg" alt="add">
-                            </div>
-                            <p class="mt-2">Click here to upload an equipment!</p>
-                            <h1 class="text-uppercase text-muted">Equipments</h1>
-                        </div>
-                    </div>
-                </div>-->
-            <!--</div>-->
-
-            <!--<div class="btn-group" style="width:100%">-->
-            <!--<button class="btn btn-outline-danger active"style="width:50%">Books</button>-->
-            <!--<button class="btn btn-outline-danger"style="width:50%">Equipments</button>-->
-            <!--</div>-->
-            <%
-                bookDAO bd = new bookDAO(FactoryProvider.getFactory());
-                List<Book> b_list = bd.getBooks();
-            %>
-            <!-- <div class="row mt-3 mx-2">-->
-
 
             <div class="row">
 
                 <%
-                    for (Book b : b_list) {
-                        if (!b.getD_email().equals(session.getAttribute("email"))) {
+                    videoDAO vd = new videoDAO(FactoryProvider.getFactory());
+                    List<Video> v_list = vd.getVideos();
                 %>
-                <div class="col-lg-4">
-                    <div class="card mt-4 mb-2 h-100">
-                        <div class="container text-center">
-                            <img src="<%= b.getB_image()%>" style="max-height: 350px; max-width: 100%; width: auto" class="card-image-top" alt="<%= b.getB_name()%>">
-                        </div> 
+
+                <%
+                    for (Video v : v_list) {
+                        if (!v.getD_email().equals(session.getAttribute("email"))) {
+                %>
+                <div class="col-lg-4 mt-4">
+                    <div class="card mt-4 mb-2 h-70">
+                       
                         <div class="card-body">
-                            <h5 class="card-title"><%= b.getB_name()%></h5>
-                            <p class="card-text"><%= Helper.get20Words(b.getB_desc())%></p>
+                            <video style="max-height: 350px; max-width: 100%; width: auto" poster="<%= v.getV_thumbnail()%>" controls>
+                                <source src="<%= v.getV_path()%>">
+                            </video>
+
                         </div>
 
                         <div class="card-footer text-center">
-                            <form method="post" action="smailRequest" id="<%= b.getB_id()%>">
-                                <input type="hidden" name="d_email" value="<%= b.getD_email()%>">
-                                <input type="hidden" name="b_name" value="<%= b.getB_name()%>">
-                                <input type="hidden" name="b_id" value="<%= b.getB_id()%>">
-                                <input type="hidden" name="category" value="book">
-                                <div class="card">
-                                    <!--<input type="submit" class="btn btn-success" value="Want it" onclick=" return swal('Confirmation' ,'Are you sure you want to request?',{buttons: ['Oh noez!', 'Aww yiss!'],})"></input>-->
-                                    <input type="button" class="btn btn-success getbtn_book"  id="<%= b.getB_id()%>" value="Want it"></input>
-
-
-                                </div>
-                            </form>
+                            <h5 class="card-title"><%= v.getV_name()%></h5>
                         </div>
+
+
                     </div>
                 </div>
 
                 <%
-
                         }
                     }
                 %>
-
-                
                 <!--</div>-->
 
             </div>

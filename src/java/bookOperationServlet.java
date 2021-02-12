@@ -6,8 +6,10 @@
 
 import dao.bookDAO;
 import dao.equipmentDAO;
+import dao.videoDAO;
 import entities.Book;
 import entities.Equipment;
+import entities.Video;
 import helper.FactoryProvider;
 import java.io.File;
 import java.io.FileInputStream;
@@ -78,14 +80,20 @@ public class bookOperationServlet extends HttpServlet {
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
+                out.println(".");
+                out.println("<script src='https://unpkg.com/sweetalert/dist/sweetalert.min.js'></script>");
+                out.println("<script type=\"text/javascript\">");
+//                out.println("swal('Oops!','You have already requested for this resource','warning');");
+                out.println("swal({"
+                        + "title: 'Success!',"
+                        + "text: 'Book uploaded Successfully',"
+                        + "icon: 'success',})"
+                        + ".then(function(){"
+                        + "window.location.href='myupload.jsp'});");
+//                out.println("location='bookLanding.jsp';");
+                out.println("</script>");
 
-                out.println("<html><head> <link rel=\"stylesheet\" href=\"https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css\">\n"
-                        + "</head><body>");
-                out.println("<h1 align=\"center\">Book Uploaded successfully!</h1>");
-                out.println("</body></html>");
-            }
-            
-            else if(op.trim().equals("addequipment")){
+            } else if (op.trim().equals("addequipment")) {
                 String e_name = (String) request.getParameter("e_name");
                 String e_desc = (String) request.getParameter("e_desc");
                 Part part = request.getPart("ePic");
@@ -100,7 +108,7 @@ public class bookOperationServlet extends HttpServlet {
                 equipmentDAO ed = new equipmentDAO(FactoryProvider.getFactory());
                 ed.saveEquipment(equ);
                 String path = request.getRealPath("/") + part.getSubmittedFileName();
-                
+
                 try {
 
                     FileOutputStream fos = new FileOutputStream(path);
@@ -116,11 +124,71 @@ public class bookOperationServlet extends HttpServlet {
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
+                out.println(".");
+                out.println("<script src='https://unpkg.com/sweetalert/dist/sweetalert.min.js'></script>");
+                out.println("<script type=\"text/javascript\">");
+//                out.println("swal('Oops!','You have already requested for this resource','warning');");
+                out.println("swal({"
+                        + "title: 'Success!',"
+                        + "text: 'Equipment uploaded Successfully',"
+                        + "icon: 'success',})"
+                        + ".then(function(){"
+                        + "window.location.href='myupload.jsp'});");
+//                out.println("location='bookLanding.jsp';");
+                out.println("</script>");
+            } else if (op.trim().equals("addvideo")) {
+                String v_name = (String) request.getParameter("v_name");
+//                String e_desc = (String) request.getParameter("e_desc");
+                Part part = request.getPart("vPic");
+                Part part2 = request.getPart("vPath");
+                String email = (String) session.getAttribute("email");
 
-                out.println("<html><head> <link rel=\"stylesheet\" href=\"https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css\">\n"
-                        + "</head><body>");
-                out.println("<h1 align=\"center\">Equipment Uploaded successfully!</h1>");
-                out.println("</body></html>");
+                Video v = new Video();
+                v.setV_name(v_name);
+//                equ.setE_desc(e_desc);
+                v.setD_email(email);
+                v.setV_thumbnail(part.getSubmittedFileName());
+                v.setV_path(part2.getSubmittedFileName());
+
+                videoDAO vd = new videoDAO(FactoryProvider.getFactory());
+                vd.saveVideo(v);
+                String path = request.getRealPath("/") + part.getSubmittedFileName();
+                String path2 = request.getRealPath("/") + part2.getSubmittedFileName();
+
+                try {
+
+                    FileOutputStream fos = new FileOutputStream(path);
+                    InputStream is = part.getInputStream();
+
+                    //reading data from part
+                    byte data[] = new byte[is.available()];
+                    is.read(data);
+
+                    //writing the data
+                    fos.write(data);
+                    fos.close();
+
+                    FileOutputStream fos2 = new FileOutputStream(path2);
+                    InputStream is2 = part2.getInputStream();
+                    byte data2[] = new byte[is2.available()];
+                    is2.read(data2);
+                    fos2.write(data2);
+                    fos2.close();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                out.println(".");
+                out.println("<script src='https://unpkg.com/sweetalert/dist/sweetalert.min.js'></script>");
+                out.println("<script type=\"text/javascript\">");
+//                out.println("swal('Oops!','You have already requested for this resource','warning');");
+                out.println("swal({"
+                        + "title: 'Success!',"
+                        + "text: 'Video uploaded Successfully',"
+                        + "icon: 'success',})"
+                        + ".then(function(){"
+                        + "window.location.href='myupload.jsp'});");
+//                out.println("location='bookLanding.jsp';");
+                out.println("</script>");
             }
         }
     }

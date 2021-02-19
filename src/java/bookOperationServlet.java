@@ -48,7 +48,6 @@ public class bookOperationServlet extends HttpServlet {
             /* TODO output your page here. You may use following sample code. */
             HttpSession session = request.getSession();
             String op = request.getParameter("operation");
-
             if (op.trim().equals("addbook")) {
                 String b_name = (String) request.getParameter("b_name");
                 String b_desc = (String) request.getParameter("b_desc");
@@ -94,6 +93,7 @@ public class bookOperationServlet extends HttpServlet {
                 out.println("</script>");
 
             } else if (op.trim().equals("addequipment")) {
+
                 String e_name = (String) request.getParameter("e_name");
                 String e_desc = (String) request.getParameter("e_desc");
                 Part part = request.getPart("ePic");
@@ -137,6 +137,7 @@ public class bookOperationServlet extends HttpServlet {
 //                out.println("location='bookLanding.jsp';");
                 out.println("</script>");
             } else if (op.trim().equals("addvideo")) {
+
                 String v_name = (String) request.getParameter("v_name");
 //                String e_desc = (String) request.getParameter("e_desc");
                 Part part = request.getPart("vPic");

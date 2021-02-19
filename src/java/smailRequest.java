@@ -1,11 +1,4 @@
 
-//smail
-
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 import dao.requestDAO;
 import entities.Book;
 import entities.Request;
@@ -48,6 +41,9 @@ public class smailRequest extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
+            Class.forName("com.mysql.jdbc.Driver");
+
+            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/app?zeroDateTimeBehavior=convertToNull", "root", "");
             HttpSession session = request.getSession();
             String fname = (String) session.getAttribute("fname");
             String lname = (String) session.getAttribute("lname");
@@ -86,20 +82,26 @@ public class smailRequest extends HttpServlet {
             } else {
                 try {
                     boolean test = sm.sendEmail(user, b);
-//                  Exception e=sm.sendEmail(user);
+//                    boolean e = sm.sendEmail(user, b);
+//                                               out.println("hello" + test);
+
                     if (test) {
 //                    HttpSession session = request.getSession();
 //                    session.setAttribute("authcode", user);
 //                    response.sendRedirect("forgotVerify.jsp");
 //                    out.println(e);
                         Request r = new Request();
+
                         r.setRes_name(request.getParameter("b_name"));
                         r.setD_email(d_email);
                         r.setR_email(requester_email);
                         r.setReq_status("pending");
                         r.setCategory(request.getParameter("category"));
+
                         requestDAO reqdao = new requestDAO(FactoryProvider.getFactory());
+
 //                        out.println(r.getReq_id() + " " + r.getR_email() + " " + r.getD_email() + " " + r.getRes_name() + " " + r.getReq_status() + " " + r.getCategory());
+//                        
                         reqdao.saveRequest(r);
 //                        out.println("Your request has been sent");
                         out.println("<script src='https://unpkg.com/sweetalert/dist/sweetalert.min.js'></script>");
@@ -115,7 +117,7 @@ public class smailRequest extends HttpServlet {
                         out.println("</script>");
                     }
                 } catch (Exception e) {
-//                out.println(e);
+                    out.println(e);
                 }
             }
 

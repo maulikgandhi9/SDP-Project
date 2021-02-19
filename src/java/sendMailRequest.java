@@ -49,9 +49,10 @@ public class sendMailRequest {
 //                return null;
 
         } catch (Exception e) {
-//            return e;
+            e.printStackTrace();
+//              return e;
         }
-
+//          return null;
         return test;
     }
 

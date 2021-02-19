@@ -10,6 +10,12 @@ import entities.Request;
 import helper.FactoryProvider;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -32,7 +38,7 @@ public class smailReject extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+            throws ServletException, IOException, SQLException, ClassNotFoundException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
@@ -51,14 +57,23 @@ public class smailReject extends HttpServlet {
             sendMailReject sm = new sendMailReject();
             User user = new User(fname, lname, requester_email, d_email);
             out.println(req.getRes_name()+" "+req.getReq_id()+"<br>");
-            out.println(requester_email);
+            out.println(requester_email+"<br>");   
+            Class.forName("com.mysql.jdbc.Driver");
+
+            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/app?zeroDateTimeBehavior=convertToNull", "root", "");
+            
             try {
+                
                 boolean test = sm.sendEmail(user, req);
                 req.setReq_status("Rejected");
-                requestDAO rdao = new requestDAO(FactoryProvider.getFactory());
-                rdao.saveRequest(req);
+                requestDAO rd = new requestDAO(FactoryProvider.getFactory());
+                rd.saveRequest(req);
+//                String query = String.format("update app.request set req_status='%s' where req_id='%d'", "Rejected",req.getReq_id());
+//                PreparedStatement pst = con.prepareStatement(query);
+//                pst.executeUpdate();
+
                 if (test) {
-                    
+                    out.println(req.getReq_id()+" "+req.getReq_status());
                     out.println("You have rejected the request for "+req.getRes_name());
                 }
                     
@@ -80,7 +95,13 @@ public class smailReject extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (SQLException ex) {
+            Logger.getLogger(smailReject.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(smailReject.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -94,7 +115,13 @@ public class smailReject extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (SQLException ex) {
+            Logger.getLogger(smailReject.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(smailReject.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**

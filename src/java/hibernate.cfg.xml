@@ -47,10 +47,13 @@ Contributor(s):
         <property name="hibernate.connection.username">root</property>
         <property name="hbm2ddl.auto">update</property>
         <property name="show_sql">true</property>
+        <property name="hibernate.show_sql">true</property>
+        <property name="hibernate.archive.autodetection">class</property>
         <mapping class="entities.Book"/>
         <mapping class="entities.Equipment"/>
         <mapping class="entities.Request"/>
         <mapping class="entities.Video"/>
-
+        <!--<mapping resource="hibernate.hbm.xml"/>-->
+        <!--<mapping resource="../../hibernate.hbm.xml"/>-->
     </session-factory>
 </hibernate-configuration>

@@ -167,7 +167,7 @@
         </div>
 
         <div class="container">
-                <h1 class="mt-5 text-center text-warning bg-dark">Videos</h1>
+            <h1 class="mt-5 text-center text-warning bg-dark">Videos</h1>
             <%
                 videoDAO vd = new videoDAO(FactoryProvider.getFactory());
                 List<Video> v_list = vd.getVideos();
@@ -180,7 +180,7 @@
                 %>
                 <div class="col-lg-4 mt-4">
                     <div class="card mt-4 mb-2 h-70">
-                                              
+
                         <div class="card-body">
                             <video style="max-height: 350px; max-width: 100%; width: auto" poster="<%= v.getV_thumbnail()%>" controls>
                                 <source src="<%= v.getV_path()%>">
@@ -238,7 +238,19 @@
                                 <label for="bPic">Select book's picture</label><BR>
                                 <input type="file" name="bPic" id="bPic" required/>
                             </div>
+                            <div class="form-group">
+                                <label for="branch">Choose Book Branch:</label>
 
+                                <select name="branch" id="branch">
+                                    <option value="IT">IT</option>
+                                    <option value="CE">CE</option>
+                                    <option value="EC">EC</option>
+                                    <option value="MH">MH</option>
+                                    <option value="CL">CL</option>
+                                    <option value="CH">CH</option>
+
+                                </select>
+                            </div>
                             <div class="container text-center">
                                 <button class="btn btn-outline-success">Add Book</button>
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>

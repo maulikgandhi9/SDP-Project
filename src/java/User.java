@@ -18,18 +18,19 @@ public class User {
     public String email;
     public String code;
     public String d_email;
-    
+    public String u_dept;
 
     public User(String email, String code) {
         this.email = email;
         this.code = code;
     }
 
-    public User(String fname, String lname,String email,String d_email) {
+    public User(String fname, String lname,String email,String d_email, String u_dept) {
         this.fname = fname;
         this.lname = lname;
         this.email = email;
         this.d_email=d_email;
+        this.u_dept=u_dept;
     }
     
 
@@ -74,6 +75,14 @@ public class User {
 
     public void setD_email(String d_email) {
         this.d_email = d_email;
+    }
+
+    public String getU_dept() {
+        return u_dept;
+    }
+
+    public void setU_dept(String u_dept) {
+        this.u_dept = u_dept;
     }
 
     

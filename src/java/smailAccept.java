@@ -49,6 +49,7 @@ public class smailAccept extends HttpServlet {
             String d_email = (String) request.getParameter("d_email");
             String requester_email = (String) request.getParameter("r_email");
             String category = (String) request.getParameter("category");
+            String dept = (String) session.getAttribute("dept");
 
             Request req = new Request();
             req.setReq_id(Integer.parseInt(request.getParameter("req_id")));
@@ -59,7 +60,7 @@ public class smailAccept extends HttpServlet {
             req.setR_email(requester_email);
 
             sendMailAccept sm = new sendMailAccept();
-            User user = new User(fname, lname, requester_email, d_email);
+            User user = new User(fname, lname, requester_email, d_email,dept);
 //            out.println(req.getRes_name()+" "+req.getReq_id()+"<br>");
 //            out.println(requester_email);
             try {
@@ -68,10 +69,10 @@ public class smailAccept extends HttpServlet {
                 requestDAO rdao = new requestDAO(FactoryProvider.getFactory());
                 rdao.saveRequest(req);
 
-                if (test) {
-
-                    out.println("You have accepted the request for " + req.getRes_name() + "<br>");
-                }
+//                if (test) {
+//
+//                    out.println("You have accepted the request for " + req.getRes_name() + "<br>");
+//                }
 
             } catch (Exception e) {
             }
@@ -95,9 +96,19 @@ public class smailAccept extends HttpServlet {
 //                pst.setString(2, req.getD_email());
                 
 //                out.println(req.getRes_name() + " " + req.getD_email() + "<br>");
-                out.println(query);
+//                out.println(query);
 //                out.println("1");
                 pst.executeUpdate();
+                out.println(".");
+                out.println("<script src='https://unpkg.com/sweetalert/dist/sweetalert.min.js'></script>");
+                    out.println("<script type=\"text/javascript\">");
+                    out.println("swal({"
+                            + "title: 'Done!',"
+                            + "text: 'You have Accepted the request for this resource',"
+                            + "icon: 'success',})"
+                            + ".then(function(){"
+                            + "window.location.href='myrequest.jsp'});");
+                    out.println("</script>");
             }
 
         }

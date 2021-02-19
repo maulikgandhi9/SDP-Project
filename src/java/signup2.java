@@ -39,33 +39,42 @@ public class signup2 extends HttpServlet {
             throws ServletException, IOException, ClassNotFoundException, SQLException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            
+
             Class.forName("com.mysql.jdbc.Driver");
 
             Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/app?zeroDateTimeBehavior=convertToNull", "root", "");
             HttpSession session = request.getSession();
-            
-            String fname=(String)session.getAttribute("fname");
-            String lname=(String)session.getAttribute("lname");
-            String email=(String)session.getAttribute("email");
-            String password=(String)session.getAttribute("password");
 
+            String fname = (String) session.getAttribute("fname");
+            String lname = (String) session.getAttribute("lname");
+            String email = (String) session.getAttribute("email");
+            String password = (String) session.getAttribute("password");
+            String dept = (String) session.getAttribute("dept");
 
-            String query = "insert into app.user1 values(?,?,?,?)";
+            String query = "insert into app.user1 values(?,?,?,?,?)";
+
             PreparedStatement pst = con.prepareStatement(query);
-            
-                pst.setString(1, fname);
-                pst.setString(2, lname);
-                pst.setString(3, email);
-                pst.setString(4, password);
-            
+
+            pst.setString(1, fname);
+            pst.setString(2, lname);
+            pst.setString(3, email);
+            pst.setString(4, password);
+
+            pst.setString(5, dept);
+//            out.print(query);
+
+            try {
                 pst.executeUpdate();
-                
-                out.println("<html><head> <link rel=\"stylesheet\" href=\"https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css\">\n"
-                        + "</head><body>");
-                out.println("<h1 align=\"center\">Signed up successfully</h1>");
-                out.println("<div style=\"width:150px; margin:0 auto;\"><button type=\"button\" onclick=\"window.location.href='index.html';\" class=\"btn btn-primary\">Click here to login</button></div>");
-                out.println("</body></html>");
+
+            } catch (Exception e) {
+                out.print(e);
+            }
+
+            out.println("<html><head> <link rel=\"stylesheet\" href=\"https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css\">\n"
+                    + "</head><body>");
+            out.println("<h1 align=\"center\">Signed up successfully</h1>");
+            out.println("<div style=\"width:150px; margin:0 auto;\"><button type=\"button\" onclick=\"window.location.href='index.html';\" class=\"btn btn-primary\">Click here to login</button></div>");
+            out.println("</body></html>");
 
         }
     }

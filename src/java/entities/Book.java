@@ -37,11 +37,15 @@ public class Book {
     @Column(name="d_email")
     private String d_email;
 
-    public Book(String b_name, String b_desc, String b_image, String d_email) {
+    @Column(name="b_dept")
+    private String b_dept;
+    
+    public Book(String b_name, String b_desc, String b_image, String d_email,String b_dept) {
         this.b_name = b_name;
         this.b_desc = b_desc;
         this.b_image = b_image;
         this.d_email = d_email;
+        this.b_dept=b_dept;
     }
 
     public Book() {
@@ -86,6 +90,15 @@ public class Book {
     public void setD_email(String d_email) {
         this.d_email = d_email;
     }
+
+    public String getB_dept() {
+        return b_dept;
+    }
+
+    public void setB_dept(String b_dept) {
+        this.b_dept = b_dept;
+    }
+    
 
     @Override
     public String toString() {

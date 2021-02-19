@@ -25,7 +25,7 @@
 
                     <form action="initialVerifyCode" method="post">
                         <span>A verification code has been sent to your mail!</span>
-                        <input type="text" name="authcode">
+                        <input type="text" name="vcode">
                         <input type="submit" name="verify">
 
                     </form>

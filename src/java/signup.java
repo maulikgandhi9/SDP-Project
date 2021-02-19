@@ -14,6 +14,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -45,16 +46,18 @@ public class signup extends HttpServlet {
             String lname = request.getParameter("lname");
             String email = request.getParameter("uemail");
             String password = request.getParameter("upwd");
-            
+            String dept = request.getParameter("branch");
+
             HttpSession session = request.getSession();
 
-            session.setAttribute("email",email);
-            session.setAttribute("fname",fname);
-            session.setAttribute("lname",lname);
-            session.setAttribute("password",password);
+            session.setAttribute("email", email);
+            session.setAttribute("fname", fname);
+            session.setAttribute("lname", lname);
+            session.setAttribute("password", password);
+            session.setAttribute("dept", dept);
 
             String query2 = "select * from app.user1 where email=?";
-            
+
             Class.forName("com.mysql.jdbc.Driver");
 
             Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/app?zeroDateTimeBehavior=convertToNull", "root", "");
@@ -63,21 +66,23 @@ public class signup extends HttpServlet {
             pst2.setString(1, email);
             ResultSet rs = pst2.executeQuery();
             if (rs.next() == false) {
-                
 
                 sendMail sm = new sendMail();
                 String code = sm.getRandom();
                 User user = new User(email, code);
-
+                out.println(user.code+" "+user.email);
                 boolean test = sm.sendEmail(user);
-
+//
                 if (test) {
-//                    HttpSession session = request.getSession();
-                    session.setAttribute("authcode", user);
-                    response.sendRedirect("initialVerify.jsp");
+////                    HttpSession session = request.getSession();
+                    session.setAttribute("authcode", user.getCode());
+                    
+                    out.println(session.getAttribute("authcode"));
+                    RequestDispatcher rd = request.getRequestDispatcher("initialVerify.jsp");
+                   rd.forward(request,response);
+//                    response.sendRedirect("initialVerify.jsp");
                 }
 
-                
 //                }
             } else {
                 out.println("<script type=\"text/javascript\">");

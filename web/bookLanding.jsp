@@ -106,15 +106,55 @@
                                 </button>    -->
                 <div class="collapse navbar-collapse navbar-collapse justify-content-md-center" id="navbarsExampleCenteredNav">
                     <ul class="nav nav-tabs">
+                        <!--                        <li class="nav-item dropdown">
+                                                    <a class="nav-link dropdown-toggle" href="http://example.com" id="dropdown03" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Books</a>
+                                                    <div class="dropdown-menu position-absolute" aria-labelledby="dropdown03">
+                                                        <a class="dropdown-item" href="myupload.jsp">IT</a>
+                                                        <a class="dropdown-item" href="myrequest.jsp">CE</a>
+                                                        <a class="dropdown-item" href="index.html">EC</a>
+                                                    </div>
+                                                </li>-->
                         <li class="nav-item">
                             <a class="nav-link active" href="bookLanding.jsp">Books</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="equipmentLanding.jsp">Equipments</a>
                         </li>
-                        
+
                     </ul>
-                    
+
+                </div>
+            </div>
+        </nav>
+
+        <nav class="navbar bg-light navbar-toggleable-md">
+            <div class="container">
+                <!--                <a class="navbar-brand" href="#">Center nav</a>
+                                <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarsExampleCenteredNav" aria-controls="navbarsExampleCenteredNav" aria-expanded="false" aria-label="Toggle navigation">
+                                    <span class="navbar-toggler-icon"></span>
+                                </button>    -->
+                <div class="collapse navbar-collapse navbar-collapse justify-content-md-center" id="navbarsExampleCenteredNav">
+                    <ul class="nav nav-pills nav-jusified">
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="bookLanding.jsp">CE</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="equipmentLanding.jsp">IT</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="equipmentLanding.jsp">EC</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="equipmentLanding.jsp">MH</a>
+                        </li>
+
+                    </ul>
+<!--                    <div class="btn-group">
+                        <a href="#" class="btn btn-success active" aria-current="page">CE</a>
+                        <a href="#" class="btn btn-success">EC</a>
+                        <a href="#" class="btn btn-success">IT</a>
+                    </div>-->
                 </div>
             </div>
         </nav>
@@ -123,29 +163,29 @@
         <!--</nav>-->
 
         <div class="container">
-<!--            <div class="row mt-3">
-                <div class="col-lg-12">
-                    <div class="card h-60" data-bs-toggle="modal" data-bs-target="#add-book-modal">
-                        <div class="card-body text-center">
-                            <div class="container">
-                                <img style="max-width: 200px; margin-left: -5px"class="img-fluid rounded-circle" src="plus.jpg" alt="add">
-                            </div>
-                            <p class="mt-2">Click here to upload a book!</p>
-                            <h1 class="text-uppercase text-muted">Books</h1>
-                        </div>
-                    </div>
-                </div>-->
-<!--                <div class="col-lg-6">
-                    <div class="card" data-bs-toggle="modal" data-bs-target="#add-equipment-modal">
-                        <div class="card-body text-center">
-                            <div class="container">
-                                <img style="max-width: 200px; margin-left: -5px"class="img-fluid rounded-circle" src="plus.jpg" alt="add">
-                            </div>
-                            <p class="mt-2">Click here to upload an equipment!</p>
-                            <h1 class="text-uppercase text-muted">Equipments</h1>
-                        </div>
-                    </div>
-                </div>-->
+            <!--            <div class="row mt-3">
+                            <div class="col-lg-12">
+                                <div class="card h-60" data-bs-toggle="modal" data-bs-target="#add-book-modal">
+                                    <div class="card-body text-center">
+                                        <div class="container">
+                                            <img style="max-width: 200px; margin-left: -5px"class="img-fluid rounded-circle" src="plus.jpg" alt="add">
+                                        </div>
+                                        <p class="mt-2">Click here to upload a book!</p>
+                                        <h1 class="text-uppercase text-muted">Books</h1>
+                                    </div>
+                                </div>
+                            </div>-->
+            <!--                <div class="col-lg-6">
+                                <div class="card" data-bs-toggle="modal" data-bs-target="#add-equipment-modal">
+                                    <div class="card-body text-center">
+                                        <div class="container">
+                                            <img style="max-width: 200px; margin-left: -5px"class="img-fluid rounded-circle" src="plus.jpg" alt="add">
+                                        </div>
+                                        <p class="mt-2">Click here to upload an equipment!</p>
+                                        <h1 class="text-uppercase text-muted">Equipments</h1>
+                                    </div>
+                                </div>
+                            </div>-->
             <!--</div>-->
 
             <!--<div class="btn-group" style="width:100%">-->
@@ -197,7 +237,7 @@
                     }
                 %>
 
-                
+
                 <!--</div>-->
 
             </div>

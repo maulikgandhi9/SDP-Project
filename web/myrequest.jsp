@@ -140,7 +140,19 @@
                                 <label for="bPic">Select book's picture</label><BR>
                                 <input type="file" name="bPic" id="bPic" required/>
                             </div>
+                            <div class="form-group">
+                                <label for="branch">Choose Book Branch:</label>
 
+                                <select name="branch" id="branch">
+                                    <option value="IT">IT</option>
+                                    <option value="CE">CE</option>
+                                    <option value="EC">EC</option>
+                                    <option value="MH">MH</option>
+                                    <option value="CL">CL</option>
+                                    <option value="CH">CH</option>
+
+                                </select>
+                            </div>
                             <div class="container text-center">
                                 <button class="btn btn-outline-success">Add Book</button>
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>

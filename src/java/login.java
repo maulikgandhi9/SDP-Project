@@ -66,9 +66,13 @@ public class login extends HttpServlet {
                     HttpSession session = request.getSession();
                       String fname=rs.getString(1);
                       String lname=rs.getString(2);
+                      String dept=rs.getString(5);
+                      out.println(dept);
                       session.setAttribute("email", request.getParameter("uemail"));
                       session.setAttribute("fname",fname);
                       session.setAttribute("lname",lname);
+                      session.setAttribute("dept",dept);
+                      out.println(session.getAttribute("dept"));
                       RequestDispatcher rd = request.getRequestDispatcher("welcomePage.jsp");
                       rd.forward(request,response);
                     

@@ -15,7 +15,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Equipment Landing</title>
+        <title>Book Landing</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -96,7 +96,7 @@
                     </ul>
                 </div>
             </div>
-        </nav>
+        </nav>  
         <%
             String dept = (String) session.getAttribute("dept");
         %>
@@ -108,38 +108,86 @@
                                 </button>    -->
                 <div class="collapse navbar-collapse navbar-collapse justify-content-md-center" id="navbarsExampleCenteredNav">
                     <ul class="nav nav-tabs">
+                        <!--                        <li class="nav-item dropdown">
+                                                    <a class="nav-link dropdown-toggle" href="http://example.com" id="dropdown03" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Books</a>
+                                                    <div class="dropdown-menu position-absolute" aria-labelledby="dropdown03">
+                                                        <a class="dropdown-item" href="myupload.jsp">IT</a>
+                                                        <a class="dropdown-item" href="myrequest.jsp">CE</a>
+                                                        <a class="dropdown-item" href="index.html">EC</a>
+                                                    </div>
+                                                </li>-->
                         <% if (dept.equalsIgnoreCase("it")) {
                         %>
 
-                        <a class="nav-link" href="itBooks.jsp">Books</a>
+                        <a class="nav-link active" href="itBooks.jsp">Books</a>
                         <%
                         } else if (dept.equalsIgnoreCase("ce")) {
                         %>
-                        <a class="nav-link" href="ceBooks.jsp">Books</a>
+                        <a class="nav-link active" href="ceBooks.jsp">Books</a>
                         <%
                         } else if (dept.equalsIgnoreCase("ec")) {
                         %>
-                        <a class="nav-link" href="ecBooks.jsp">Books</a>
+                        <a class="nav-link active" href="ecBooks.jsp">Books</a>
                         <%
                         } else if (dept.equalsIgnoreCase("mh")) {
                         %>
-                        <a class="nav-link" href="mhBooks.jsp">Books</a>
+                        <a class="nav-link active" href="mhBooks.jsp">Books</a>
                         <%
                         } else if (dept.equalsIgnoreCase("cl")) {
                         %>
-                        <a class="nav-link" href="clBooks.jsp">Books</a>
+                        <a class="nav-link active" href="clBooks.jsp">Books</a>
                         <%
                         } else if (dept.equalsIgnoreCase("ch")) {
                         %>
-                        <a class="nav-link" href="chBooks.jsp">Books</a>
+                        <a class="nav-link active" href="chBooks.jsp">Books</a>
                         <%
                             }
                         %>
+
                         <li class="nav-item">
-                            <a class="nav-link active" href="equipmentLanding.jsp">Equipments</a>
+                            <a class="nav-link" href="equipmentLanding.jsp">Equipments</a>
                         </li>
 
                     </ul>
+
+                </div>
+            </div>
+        </nav>
+
+        <nav class="navbar bg-light navbar-toggleable-md">
+            <div class="container">
+                <!--                <a class="navbar-brand" href="#">Center nav</a>
+                                <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarsExampleCenteredNav" aria-controls="navbarsExampleCenteredNav" aria-expanded="false" aria-label="Toggle navigation">
+                                    <span class="navbar-toggler-icon"></span>
+                                </button>    -->
+                <div class="collapse navbar-collapse navbar-collapse justify-content-md-center" id="navbarsExampleCenteredNav">
+                    <ul class="nav nav-pills nav-jusified">
+
+                        <li class="nav-item">
+                            <a class="nav-link active" href="ceBooks.jsp">CE</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="itBooks.jsp">IT</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="ecBooks.jsp">EC</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="mhBooks.jsp">MH</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="chBooks.jsp">CH</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="clBooks.jsp">CL</a>
+                        </li>
+
+                    </ul>
+                    <!--                    <div class="btn-group">
+                                            <a href="#" class="btn btn-success active" aria-current="page">CE</a>
+                                            <a href="#" class="btn btn-success">EC</a>
+                                            <a href="#" class="btn btn-success">IT</a>
+                                        </div>-->
                 </div>
             </div>
         </nav>
@@ -148,9 +196,9 @@
         <!--</nav>-->
 
         <div class="container">
-            <!--<div class="row mt-3">-->
-            <!--                <div class="col-lg-6">
-                                <div class="card" data-bs-toggle="modal" data-bs-target="#add-book-modal">
+            <!--            <div class="row mt-3">
+                            <div class="col-lg-12">
+                                <div class="card h-60" data-bs-toggle="modal" data-bs-target="#add-book-modal">
                                     <div class="card-body text-center">
                                         <div class="container">
                                             <img style="max-width: 200px; margin-left: -5px"class="img-fluid rounded-circle" src="plus.jpg" alt="add">
@@ -160,8 +208,8 @@
                                     </div>
                                 </div>
                             </div>-->
-            <!--                <div class="col-lg-12">
-                                <div class="card h-60" data-bs-toggle="modal" data-bs-target="#add-equipment-modal">
+            <!--                <div class="col-lg-6">
+                                <div class="card" data-bs-toggle="modal" data-bs-target="#add-equipment-modal">
                                     <div class="card-body text-center">
                                         <div class="container">
                                             <img style="max-width: 200px; margin-left: -5px"class="img-fluid rounded-circle" src="plus.jpg" alt="add">
@@ -177,44 +225,38 @@
             <!--<button class="btn btn-outline-danger active"style="width:50%">Books</button>-->
             <!--<button class="btn btn-outline-danger"style="width:50%">Equipments</button>-->
             <!--</div>-->
-
+            <%
+                bookDAO bd = new bookDAO(FactoryProvider.getFactory());
+                List<Book> b_list = bd.getBooks();
+            %>
             <!-- <div class="row mt-3 mx-2">-->
 
 
             <div class="row">
 
-
-
-
                 <%
-                    equipmentDAO ed = new equipmentDAO(FactoryProvider.getFactory());
-                    List<Equipment> e_list = ed.getEquipments();
+                    for (Book b : b_list) {
+                        if (!b.getD_email().equals(session.getAttribute("email")) && b.getB_dept().equalsIgnoreCase("ce")) {
                 %>
-
-                <%
-                    for (Equipment e : e_list) {
-                        if (!e.getD_email().equals(session.getAttribute("email"))) {
-                %>
-
-                <div class="col-lg-4 mt-4">
+                <div class="col-lg-4">
                     <div class="card mt-4 mb-2 h-100">
                         <div class="container text-center">
-                            <img src="<%= e.getE_image()%>" style="max-height: 350px; max-width: 100%; width: auto" class="card-image-top" alt="<%= e.getE_name()%>">
+                            <img src="<%= b.getB_image()%>" style="max-height: 350px; max-width: 100%; width: auto" class="card-image-top" alt="<%= b.getB_name()%>">
                         </div> 
                         <div class="card-body">
-                            <h5 class="card-title"><%= e.getE_name()%></h5>
-                            <p class="card-text"><%= Helper.get20Words(e.getE_desc())%></p>
+                            <h5 class="card-title"><%= b.getB_name()%></h5>
+                            <p class="card-text"><%= Helper.get20Words(b.getB_desc())%></p>
                         </div>
 
                         <div class="card-footer text-center">
-                            <form method="post" action="smailRequest" id="<%= e.getE_id()%>">
-                                <input type="hidden" name="d_email" value="<%= e.getD_email()%>">
-                                <input type="hidden" name="b_name" value="<%= e.getE_name()%>">
-                                <input type="hidden" name="b_id" value="<%= e.getE_id()%>">
-                                <input type="hidden" name="category" value="equipment">
+                            <form method="post" action="smailRequest" id="<%= b.getB_id()%>">
+                                <input type="hidden" name="d_email" value="<%= b.getD_email()%>">
+                                <input type="hidden" name="b_name" value="<%= b.getB_name()%>">
+                                <input type="hidden" name="b_id" value="<%= b.getB_id()%>">
+                                <input type="hidden" name="category" value="book">
                                 <div class="card">
                                     <!--<input type="submit" class="btn btn-success" value="Want it" onclick=" return swal('Confirmation' ,'Are you sure you want to request?',{buttons: ['Oh noez!', 'Aww yiss!'],})"></input>-->
-                                    <input type="button" class="btn btn-success getbtn_equ" id="<%= e.getE_id()%>"  value="Want it"></input>
+                                    <input type="button" class="btn btn-success getbtn_book"  id="<%= b.getB_id()%>" value="Want it"></input>
 
 
                                 </div>
@@ -227,6 +269,8 @@
                         }
                     }
                 %>
+
+
                 <!--</div>-->
 
             </div>
@@ -263,7 +307,19 @@
                         <label for="bPic">Select book's picture</label><BR>
                         <input type="file" name="bPic" id="bPic" required/>
                     </div>
+                    <div class="form-group">
+                        <label for="branch">Choose Book Branch:</label>
 
+                        <select name="branch" id="branch">
+                            <option value="IT">IT</option>
+                            <option value="CE">CE</option>
+                            <option value="EC">EC</option>
+                            <option value="MH">MH</option>
+                            <option value="CL">CL</option>
+                            <option value="CH">CH</option>
+
+                        </select>
+                    </div>
                     <div class="container text-center">
                         <button class="btn btn-outline-success">Add Book</button>
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>

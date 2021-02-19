@@ -53,13 +53,14 @@ public class bookOperationServlet extends HttpServlet {
                 String b_desc = (String) request.getParameter("b_desc");
                 Part part = request.getPart("bPic");
                 String email = (String) session.getAttribute("email");
-
+                String dept = (String) request.getParameter("branch");
+//                out.print(dept);
                 Book b = new Book();
                 b.setB_name(b_name);
                 b.setB_desc(b_desc);
                 b.setD_email(email);
                 b.setB_image(part.getSubmittedFileName());
-
+                b.setB_dept(dept);
                 bookDAO bd = new bookDAO(FactoryProvider.getFactory());
                 bd.saveBook(b);
                 String path = request.getRealPath("/") + part.getSubmittedFileName();

@@ -33,15 +33,23 @@ public class initialVerifyCode extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
+            out.print("hi");
             HttpSession session = request.getSession();
-            User user = (User) session.getAttribute("authcode");
-            String code = request.getParameter("authcode");
+//            User user = (User) session.getAttribute("authcode");
+            String ucode = (String) session.getAttribute("authcode");
+            String code = request.getParameter("vcode");
+//            try{
+                            out.print(ucode+" "+code);
+//            }
+//            catch(Exception e){
+//                out.println(e);
+//            }
+            if (code.equals(ucode)) {
+                            out.print("hi");
 
-            if (code.equals(user.getCode())) {
-                
-//                   response.sendRedirect(request.getContextPath() + "signup2");
-                   RequestDispatcher rd = request.getRequestDispatcher("signup2");
-                   rd.forward(request,response);
+                   response.sendRedirect( "signup2");
+//                   RequestDispatcher rd = request.getRequestDispatcher("signup2");
+//                   rd.forward(request,response);
 
                     
             } else {

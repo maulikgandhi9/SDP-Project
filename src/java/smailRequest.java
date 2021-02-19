@@ -47,16 +47,17 @@ public class smailRequest extends HttpServlet {
             HttpSession session = request.getSession();
             String fname = (String) session.getAttribute("fname");
             String lname = (String) session.getAttribute("lname");
+            String u_dept = (String) session.getAttribute("dept");
             String d_email = (String) request.getParameter("d_email");
             String requester_email = (String) session.getAttribute("email");
-
+//            String dept = (String)session.getAttribute("dept");
             Book b = new Book();
             b.setB_name((String) request.getParameter("b_name"));
             sendMailRequest sm = new sendMailRequest();
 
-            User user = new User(fname, lname, requester_email, d_email);
+            User user = new User(fname, lname, requester_email, d_email, u_dept);
             out.println(".");
-
+            
             requestDAO rdao = new requestDAO(FactoryProvider.getFactory());
             List<Request> req_list = rdao.getRequests();
             boolean flag = false;
@@ -71,14 +72,57 @@ public class smailRequest extends HttpServlet {
                 out.println("<script src='https://unpkg.com/sweetalert/dist/sweetalert.min.js'></script>");
                 out.println("<script type=\"text/javascript\">");
 //                out.println("swal('Oops!','You have already requested for this resource','warning');");
-                out.println("swal({"
-                        + "title: 'Oops!',"
-                        + "text: 'You have already requested for this resource',"
-                        + "icon: 'warning',})"
-                        + ".then(function(){"
-                        + "window.location.href='bookLanding.jsp'});");
-//                out.println("location='bookLanding.jsp';");
-                out.println("</script>");
+                if (u_dept.equalsIgnoreCase("it")) {
+                            out.println("swal({"
+                                    + "title: 'Oops!',"
+                                    + "text: 'You have already requested for this resource',"
+                                    + "icon: 'warning',})"
+                                    + ".then(function(){"
+                                    + "window.location.href='itBooks.jsp'});");
+                            out.println("</script>");
+                        }
+                        else if(u_dept.equalsIgnoreCase("ce")){
+                            out.println("swal({"
+                                    + "title: 'Oops!',"
+                                    + "text: 'You have already requested for this resource',"
+                                    + "icon: 'warning',})"
+                                    + ".then(function(){"
+                                    + "window.location.href='ceBooks.jsp'});");
+                            out.println("</script>");
+                        }
+                        else if(u_dept.equalsIgnoreCase("ec")){
+                            out.println("swal({"
+                                    + "title: 'Oops!',"
+                                    + "text: 'You have already requested for this resource',"
+                                    + "icon: 'warning',})"
+                                    + ".then(function(){"
+                                    + "window.location.href='ecBooks.jsp'});");
+                            out.println("</script>");
+                        }else if(u_dept.equalsIgnoreCase("ch")){
+                            out.println("swal({"
+                                    + "title: 'Oops!',"
+                                    + "text: 'You have already requested for this resource',"
+                                    + "icon: 'warning',})"
+                                    + ".then(function(){"
+                                    + "window.location.href='chBooks.jsp'});");
+                            out.println("</script>");
+                        }else if(u_dept.equalsIgnoreCase("cl")){
+                            out.println("swal({"
+                                    + "title: 'Oops!',"
+                                    + "text: 'You have already requested for this resource',"
+                                    + "icon: 'warning',})"
+                                    + ".then(function(){"
+                                    + "window.location.href='clBooks.jsp'});");
+                            out.println("</script>");
+                        }else if(u_dept.equalsIgnoreCase("mh")){
+                            out.println("swal({"
+                                    + "title: 'Oops!',"
+                                    + "text: 'You have already requested for this resource',"
+                                    + "icon: 'warning',})"
+                                    + ".then(function(){"
+                                    + "window.location.href='mhBooks.jsp'});");
+                            out.println("</script>");
+                        }
             } else {
                 try {
                     boolean test = sm.sendEmail(user, b);
@@ -100,21 +144,63 @@ public class smailRequest extends HttpServlet {
 
                         requestDAO reqdao = new requestDAO(FactoryProvider.getFactory());
 
-//                        out.println(r.getReq_id() + " " + r.getR_email() + " " + r.getD_email() + " " + r.getRes_name() + " " + r.getReq_status() + " " + r.getCategory());
 //                        
                         reqdao.saveRequest(r);
 //                        out.println("Your request has been sent");
                         out.println("<script src='https://unpkg.com/sweetalert/dist/sweetalert.min.js'></script>");
                         out.println("<script type=\"text/javascript\">");
-//                out.println("swal('Oops!','You have already requested for this resource','warning');");
-                        out.println("swal({"
+                        if (u_dept.equalsIgnoreCase("it")) {
+                            out.println("swal({"
+                                    + "title: 'Success!',"
+                                    + "text: 'You have successfully requested for this resource',"
+                                    + "icon: 'success',})"
+                                    + ".then(function(){"
+                                    + "window.location.href='itBooks.jsp'});");
+                            out.println("</script>");
+                        }
+                        else if(u_dept.equalsIgnoreCase("ce")){
+                            out.println("swal({"
                                 + "title: 'Success!',"
                                 + "text: 'You have successfully requested for this resource',"
                                 + "icon: 'success',})"
                                 + ".then(function(){"
-                                + "window.location.href='bookLanding.jsp'});");
-//                out.println("location='bookLanding.jsp';");
+                                + "window.location.href='ceBooks.jsp'});");
                         out.println("</script>");
+                        }
+                        else if(u_dept.equalsIgnoreCase("ec")){
+                            out.println("swal({"
+                                + "title: 'Success!',"
+                                + "text: 'You have successfully requested for this resource',"
+                                + "icon: 'success',})"
+                                + ".then(function(){"
+                                + "window.location.href='ecBooks.jsp'});");
+                        out.println("</script>");
+                        }else if(u_dept.equalsIgnoreCase("ch")){
+                            out.println("swal({"
+                                + "title: 'Success!',"
+                                + "text: 'You have successfully requested for this resource',"
+                                + "icon: 'success',})"
+                                + ".then(function(){"
+                                + "window.location.href='chBooks.jsp'});");
+                        out.println("</script>");
+                        }else if(u_dept.equalsIgnoreCase("cl")){
+                            out.println("swal({"
+                                + "title: 'Success!',"
+                                + "text: 'You have successfully requested for this resource',"
+                                + "icon: 'success',})"
+                                + ".then(function(){"
+                                + "window.location.href='clBooks.jsp'});");
+                        out.println("</script>");
+                        }else if(u_dept.equalsIgnoreCase("mh")){
+                            out.println("swal({"
+                                + "title: 'Success!',"
+                                + "text: 'You have successfully requested for this resource',"
+                                + "icon: 'success',})"
+                                + ".then(function(){"
+                                + "window.location.href='mhBooks.jsp'});");
+                        out.println("</script>");
+                        }
+
                     }
                 } catch (Exception e) {
                     out.println(e);

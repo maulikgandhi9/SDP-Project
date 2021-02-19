@@ -29,7 +29,7 @@ public class bookDAO {
         try {
             Session session = this.factory.openSession();
             Transaction tx = session.beginTransaction();
-            session.save(book);
+            session.saveOrUpdate(book);
             tx.commit();
             session.close();
             flag = true;

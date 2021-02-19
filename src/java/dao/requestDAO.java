@@ -27,17 +27,28 @@ public class requestDAO {
     
     public boolean saveRequest(Request req) {
         boolean flag = false;
+        Session session=null;
+        Transaction tx=null;
         try {
-            Session session = this.factory.openSession();
-            Transaction tx = session.beginTransaction();
+            session = this.factory.openSession();
+            tx = session.beginTransaction();
             session.saveOrUpdate(req);
             tx.commit();
-            session.close();
+            
+            
             flag = true;
         } catch (Exception e) {
             e.printStackTrace();
             flag = false;
         }
+        finally{
+            if(!tx.wasCommitted()){
+                tx.rollback();
+            }
+            session.flush();
+            session.close();
+        }
+            
         return flag;
     }
 

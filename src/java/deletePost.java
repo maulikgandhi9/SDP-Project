@@ -64,15 +64,13 @@ public class deletePost extends HttpServlet {
                 PreparedStatement pst = con.prepareStatement(query);
 //                pst.setInt(1, Integer.parseInt(request.getParameter("b_id")));
                 try {
-//                    pst.executeUpdate();
-//                    out.println(request.getParameter("b_id"));
+                    pst.executeUpdate();
                     bookDAO bd = new bookDAO(FactoryProvider.getFactory());
                     bd.deleteBook(b);
 
                     out.println(".");
                     out.println("<script src='https://unpkg.com/sweetalert/dist/sweetalert.min.js'></script>");
                     out.println("<script type=\"text/javascript\">");
-//                out.println("swal('Oops!','You have already requested for this resource','warning');");
                     out.println("swal({"
                             + "title: 'Success!',"
                             + "text: 'Book deleted Successfully',"

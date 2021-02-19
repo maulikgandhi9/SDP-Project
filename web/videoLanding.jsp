@@ -34,7 +34,7 @@
 
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
-        <link rel="stylesheet" href="bookLandingCSS.css">
+        <link rel="stylesheet" href="videoLandingCSS.css">
         <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
 
@@ -43,7 +43,7 @@
 
         <title>Books and Equipments</title>
     </head>
-    <body>
+    <body style="color: ">
         <%
 //   HttpSession session = request.getSession();
             String name = (String) session.getAttribute("fname") + " " + (String) session.getAttribute("lname");
@@ -108,12 +108,25 @@
                         if (!v.getD_email().equals(session.getAttribute("email"))) {
                 %>
                 <div class="col-lg-4 mt-4">
+
+
                     <div class="card mt-4 mb-2 h-70">
-                       
+
                         <div class="card-body">
-                            <video style="max-height: 350px; max-width: 100%; width: auto" poster="<%= v.getV_thumbnail()%>" controls>
-                                <source src="<%= v.getV_path()%>">
-                            </video>
+
+                            
+                                <video style="max-height: 1000px; max-width: 100%; width: auto" poster="<%= v.getV_thumbnail()%>">
+                                    <source src="<%= v.getV_path()%>">
+                                </video>
+                            <!--<form action="openVideo" method="post" enctype="multipart/form-data" id="<%= v.getV_id()%>">-->
+
+
+                                <!--<input type="hidden" name="v_name" value="<%= v.getV_name()%>">-->
+
+                                <!--<img src="<%= v.getV_thumbnail()%>" style=" object-fit: cover; max-height: 350px; max-width: 300px "id="<%= v.getV_id()%>" class="popup-youtube">-->
+
+
+                            <!--</form>-->
 
                         </div>
 
@@ -260,5 +273,7 @@
     </div>
 </div>
 <script src='request_confirmation.js'></script>
+<script src='video.js'></script>
+
 </body>
 </html>

@@ -102,8 +102,8 @@
                             <input type="hidden" name="res_name" value="<%= req.getRes_name()%>">
                             <input type="hidden" name="req_id" value="<%= req.getReq_id()%>">
                             <input type="hidden" name="category" value="<%= req.getCategory()%>">
-                            <input type="submit" formaction="smailAccept" value="Accept" class="btn btn-primary"></input>
-                            <input type="submit" formaction="smailReject" value="Reject" class="btn btn-primary"></input>
+                            <input type="submit" formaction="smailAccept" value="Accept" class="btn btn-success"></input>
+                            <input type="submit" formaction="smailReject" value="Reject" class="btn btn-danger"></input>
                         </form>
                     </td>
                     <%

@@ -39,13 +39,16 @@ div .card:hover{
     background: #e2e2e2;
     cursor: pointer;
 }
-/*
+
 .nav-tabs{
-  background-color:wheat;
-}*/
-div .nav-tabs .nav-link .active{
+  background-color:#4cae4c;
+}
+.nav-link .active{
      background-color: green !important;
 }
 
 nav .navbar .nav-item:hover .dropdown-menu{ display: block; }
 
+body{
+     background-color: #121212;
+}

@@ -54,7 +54,7 @@ public class smailReject extends HttpServlet {
             req.setRes_name(request.getParameter("res_name"));
             req.setD_email(d_email);
             req.setR_email(requester_email);
-
+            req.setCategory(request.getParameter("category"));
             sendMailReject sm = new sendMailReject();
             User user = new User(fname, lname, requester_email, d_email, u_dept);
 //            out.println(req.getRes_name() + " " + req.getReq_id() + "<br>");

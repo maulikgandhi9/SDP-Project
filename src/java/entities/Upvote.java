@@ -17,12 +17,11 @@ import javax.persistence.Id;
  */
 @Entity
 
-public class Request {
-
+public class Upvote {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "req_id")
-    private int req_id;
+    @Column(name = "upvote_id")
+    private int upvote_id;
 
     @Column(name = "res_name")
     private String res_name;
@@ -30,31 +29,24 @@ public class Request {
     @Column(name = "d_email")
     private String d_email;
 
-    @Column(name = "r_email")
-    private String r_email;
-
-    @Column(name = "req_status")
-    private String req_status;
-
     @Column(name = "category")
     private String category;
-    
-    @Column(name = "p_feedback")
-    private String p_feedback;
-    
-    @Column(name = "feedback")
-    private String feedback;
-    
-    public Request() {
-    }
-    
 
-    public int getReq_id() {
-        return req_id;
+    @Column(name = "additional_comments")
+    private String ac;
+    
+    @Column(name = "upvoter_email")
+    private String up_email;
+
+    public Upvote() {
     }
 
-    public void setReq_id(int req_id) {
-        this.req_id = req_id;
+    public int getUpvote_id() {
+        return upvote_id;
+    }
+
+    public void setUpvote_id(int upvote_id) {
+        this.upvote_id = upvote_id;
     }
 
     public String getRes_name() {
@@ -73,22 +65,6 @@ public class Request {
         this.d_email = d_email;
     }
 
-    public String getR_email() {
-        return r_email;
-    }
-
-    public void setR_email(String r_email) {
-        this.r_email = r_email;
-    }
-
-    public String getReq_status() {
-        return req_status;
-    }
-
-    public void setReq_status(String r_status) {
-        this.req_status = r_status;
-    }
-
     public String getCategory() {
         return category;
     }
@@ -97,21 +73,21 @@ public class Request {
         this.category = category;
     }
 
-    public String getFeedback() {
-        return feedback;
+    public String getUp_email() {
+        return up_email;
     }
 
-    public void setFeedback(String feedback) {
-        this.feedback = feedback;
+    public void setUp_email(String up_email) {
+        this.up_email = up_email;
     }
 
-    public String getP_feedback() {
-        return p_feedback;
+    public String getAc() {
+        return ac;
     }
 
-    public void setP_feedback(String p_feedback) {
-        this.p_feedback = p_feedback;
+    public void setAc(String ac) {
+        this.ac = ac;
     }
-
+    
     
 }

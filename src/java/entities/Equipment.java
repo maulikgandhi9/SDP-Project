@@ -36,6 +36,12 @@ public class Equipment {
     @Column(name="d_email")
     private String d_email;
     
+    @Column(name="downvotes",columnDefinition = "int default 0")
+    private int downvotes;
+    
+    @Column(name="upvotes",columnDefinition = "int default 0")
+    private int upvotes;
+    
     public Equipment(String e_name, String e_desc, String e_image, String d_email) {
         this.e_name = e_name;
         this.e_desc = e_desc;
@@ -84,6 +90,22 @@ public class Equipment {
 
     public void setD_email(String d_email) {
         this.d_email = d_email;
+    }
+
+    public int getDownvotes() {
+        return downvotes;
+    }
+
+    public void setDownvotes(int downvotes) {
+        this.downvotes = downvotes;
+    }
+
+    public int getUpvotes() {
+        return upvotes;
+    }
+
+    public void setUpvotes(int upvotes) {
+        this.upvotes = upvotes;
     }
     
     

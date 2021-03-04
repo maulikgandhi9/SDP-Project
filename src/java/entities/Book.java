@@ -40,6 +40,12 @@ public class Book {
     @Column(name="b_dept")
     private String b_dept;
     
+    @Column(name="downvotes",columnDefinition = "int default 0")
+    private int downvotes;
+    
+    @Column(name="upvotes",columnDefinition = "int default 0")
+    private int upvotes;
+    
     public Book(String b_name, String b_desc, String b_image, String d_email,String b_dept) {
         this.b_name = b_name;
         this.b_desc = b_desc;
@@ -98,8 +104,24 @@ public class Book {
     public void setB_dept(String b_dept) {
         this.b_dept = b_dept;
     }
-    
 
+    public int getDownvotes() {
+        return downvotes;
+    }
+
+    public void setDownvotes(int downvotes) {
+        this.downvotes = downvotes;
+    }
+
+    public int getUpvotes() {
+        return upvotes;
+    }
+
+    public void setUpvotes(int upvotes) {
+        this.upvotes = upvotes;
+    }
+    
+    
     @Override
     public String toString() {
         return "Book{" + "b_id=" + b_id + ", b_name=" + b_name + ", b_desc=" + b_desc + ", b_image=" + b_image + ", d_email=" + d_email + '}';

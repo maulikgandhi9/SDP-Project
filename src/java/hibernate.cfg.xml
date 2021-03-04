@@ -53,6 +53,9 @@ Contributor(s):
         <mapping class="entities.Equipment"/>
         <mapping class="entities.Request"/>
         <mapping class="entities.Video"/>
+        <mapping class="entities.Downvote"/>
+        <mapping class="entities.Upvote"/>
+
         <!--<mapping resource="hibernate.hbm.xml"/>-->
         <!--<mapping resource="../../hibernate.hbm.xml"/>-->
     </session-factory>

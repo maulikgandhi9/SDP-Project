@@ -36,6 +36,12 @@ public class Video {
     @Column(name="d_email")
     private String d_email;
 
+    @Column(name="downvotes",columnDefinition = "int default 0")
+    private int downvotes;
+    
+    @Column(name="upvotes",columnDefinition = "int default 0")
+    private int upvotes;
+    
     public Video() {
     }
     public Video(String v_name,String v_thumbnail, String v_path,String d_email) {
@@ -83,6 +89,22 @@ public class Video {
 
     public void setD_email(String d_email) {
         this.d_email = d_email;
+    }
+
+    public int getDownvotes() {
+        return downvotes;
+    }
+
+    public void setDownvotes(int downvotes) {
+        this.downvotes = downvotes;
+    }
+
+    public int getUpvotes() {
+        return upvotes;
+    }
+
+    public void setUpvotes(int upvotes) {
+        this.upvotes = upvotes;
     }
     
     

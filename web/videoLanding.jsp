@@ -81,6 +81,8 @@
                             <div class="dropdown-menu position-absolute" aria-labelledby="dropdown03">
                                 <a class="dropdown-item" href="myupload.jsp">My Uploads</a>
                                 <a class="dropdown-item" href="myrequest.jsp">Approvals</a>
+                                <a class="dropdown-item" href="mygrievance.jsp">Grievances</a>
+                                <a class="dropdown-item" href="myResRequest.jsp">My Requests</a>
                                 <a class="dropdown-item" href="index.html">Logout</a>
                             </div>
                         </li>
@@ -114,19 +116,11 @@
 
                         <div class="card-body">
 
-                            
-                                <video style="max-height: 1000px; max-width: 100%; width: auto" poster="<%= v.getV_thumbnail()%>">
-                                    <source src="<%= v.getV_path()%>">
-                                </video>
-                            <!--<form action="openVideo" method="post" enctype="multipart/form-data" id="<%= v.getV_id()%>">-->
 
+                            <video style="max-height: 1000px; max-width: 100%; width: auto" poster="<%= v.getV_thumbnail()%>">
+                                <source src="<%= v.getV_path()%>">
+                            </video>
 
-                                <!--<input type="hidden" name="v_name" value="<%= v.getV_name()%>">-->
-
-                                <!--<img src="<%= v.getV_thumbnail()%>" style=" object-fit: cover; max-height: 350px; max-width: 300px "id="<%= v.getV_id()%>" class="popup-youtube">-->
-
-
-                            <!--</form>-->
 
                         </div>
 
@@ -134,10 +128,108 @@
                             <h5 class="card-title"><%= v.getV_name()%></h5>
                         </div>
 
+                        <div class="card-footer text-center">
+
+                            <a class="text-primary upbtn mr-5" data-bs-toggle="modal" data-bs-target="#upvote-modal<%= v.getV_id()%>" style="font-size: 110%" id="<%= v.getV_id()%>s"> Helpful<i class='fa fa-thumbs-up'> <%= v.getUpvotes()%></i></a> 
+
+                            <a class="text-danger downbtn ml-5" data-bs-toggle="modal" data-bs-target="#downvote-modal<%= v.getV_id()%>" style="font-size: 110%" id="<%= v.getV_id()%>s" >Spam<i class="fa fa-thumbs-down"> <%= v.getDownvotes()%></i></a>  
+                        </div>
 
                     </div>
                 </div>
+                <div class="modal fade" id="downvote-modal<%= v.getV_id()%>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-lg">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Your Valuable Feedback is Appreciated!</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <!---->
+                                <form action="downvoteServlet" method="post" id="<%= v.getV_id()%>">
+                                    <input type="hidden" name="d_email" value="<%= v.getD_email()%>" id="<%= v.getD_email()%>">
+                                    <input type="hidden" name="v_name" value="<%= v.getV_name()%>" id="<%= v.getV_name()%>">
+                                    <input type="hidden" name="v_id" value="<%= v.getV_id()%>" id="<%= v.getV_id()%>">
+                                    <input type="hidden" name="category" value="video">
+                                    <input type="hidden" name="downvotes" value="<%= v.getDownvotes()%>" id="<%= v.getDownvotes()%>">
+                                    <input type="hidden" name="operation" value="downvote"/>    
+                                    <p>Please provide the primary reason for this downvote!</p>
 
+                                    <div class="form-group">
+                                        <input type="radio" id="impc<%= v.getV_id()%>" name="problem" value="improper content" class="ml-2">
+                                        <label for="impc<%= v.getV_id()%>">Improper Content</label>
+
+                                        <input type="radio" id="fd<%= v.getV_id()%>" name="problem" value="false description" class="ml-2">
+                                        <label for="fd<%= v.getV_id()%>">False Description</label>
+
+                                        <input type="radio" id="id<%= v.getV_id()%>" name="problem" value="improper donor" class="ml-2">
+                                        <label for="id<%= v.getV_id()%>">Improper Donor</label>
+
+                                        <input type="radio" id="ot<%= v.getV_id()%>" name="problem" value="other" class="ml-2">
+                                        <label for="ot<%= v.getV_id()%>">Other</label>
+
+                                    </div>
+
+                                    <div class="form-group">
+                                        <textarea style="height: 300px;" class="form-control"placeholder="Any other comments" name="ac"></textarea>     
+                                    </div>
+                                    <!--                    <div class="form-group">
+                                                            <label for="vPath">Select Video!</label><BR>
+                                                            <input type="file" name="vPath" id="vPath" required/>
+                                                        </div>
+                                    
+                                    -->                   
+                                    <div class="container text-center">
+                                        <button class="btn btn-outline-success">Submit Feedback</button>
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+
+                                    </div>
+
+
+
+                                </form>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal fade" id="upvote-modal<%= v.getV_id()%>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-lg">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Your Valuable Feedback is Appreciated!</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <!---->
+                                <form action="upvoteServlet" method="post" id="<%= v.getV_id()%>">
+                                    <input type="hidden" name="d_email" value="<%= v.getD_email()%>" id="<%= v.getD_email()%>">
+                                    <input type="hidden" name="v_name" value="<%= v.getV_name()%>" id="<%= v.getV_name()%>">
+                                    <input type="hidden" name="v_id" value="<%= v.getV_id()%>" id="<%= v.getV_id()%>">
+                                    <input type="hidden" name="category" value="video">
+                                    <input type="hidden" name="upvotes" value="<%= v.getUpvotes()%>" id="<%= v.getUpvotes()%>">
+                                    <input type="hidden" name="operation" value="upvote"/>    
+                                    <p>Please provide any primary reason for this upvote!(Optional)</p>
+
+                                    <div class="form-group">
+                                        <textarea style="height: 300px;" class="form-control"placeholder="Any other comments" name="ac"></textarea>     
+                                    </div>
+
+                                    <div class="container text-center">
+                                        <button class="btn btn-outline-success">Submit Feedback</button>
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+
+                                    </div>
+
+
+
+                                </form>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <%
                         }
                     }

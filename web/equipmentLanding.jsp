@@ -90,6 +90,8 @@
                             <div class="dropdown-menu position-absolute" aria-labelledby="dropdown03">
                                 <a class="dropdown-item" href="myupload.jsp">My Uploads</a>
                                 <a class="dropdown-item" href="myrequest.jsp">Approvals</a>
+                                <a class="dropdown-item" href="mygrievance.jsp">Grievances</a>
+                                <a class="dropdown-item" href="myResRequest.jsp">My Requests</a>
                                 <a class="dropdown-item" href="index.html">Logout</a>
                             </div>
                         </li>
@@ -215,14 +217,109 @@
                                 <div class="card">
                                     <!--<input type="submit" class="btn btn-success" value="Want it" onclick=" return swal('Confirmation' ,'Are you sure you want to request?',{buttons: ['Oh noez!', 'Aww yiss!'],})"></input>-->
                                     <input type="button" class="btn btn-success getbtn_equ" id="<%= e.getE_id()%>"  value="Want it"></input>
-
-
                                 </div>
                             </form>
+                            <a class="text-primary upbtn mr-5" data-bs-toggle="modal" data-bs-target="#upvote-modal<%= e.getE_id()%>" style="font-size: 110%" id="<%= e.getE_id()%>s"> Helpful<i class='fa fa-thumbs-up'> <%= e.getUpvotes()%></i></a> 
+
+                            <a class="text-danger downbtn ml-5" data-bs-toggle="modal" data-bs-target="#downvote-modal<%= e.getE_id()%>" style="font-size: 110%" id="<%= e.getE_id()%>s" >Spam<i class="fa fa-thumbs-down"> <%= e.getDownvotes()%></i></a> 
+
                         </div>
                     </div>
                 </div>
 
+                <div class="modal fade" id="downvote-modal<%= e.getE_id()%>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-lg">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Your Valuable Feedback is Appreciated!</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <!---->
+                                <form action="downvoteServlet" method="post" id="<%= e.getE_id()%>">
+                                    <input type="hidden" name="d_email" value="<%= e.getD_email()%>" id="<%= e.getD_email()%>">
+                                    <input type="hidden" name="e_name" value="<%= e.getE_name()%>" id="<%= e.getE_name()%>">
+                                    <input type="hidden" name="e_id" value="<%= e.getE_id()%>" id="<%= e.getE_id()%>">
+                                    <input type="hidden" name="category" value="equipment">
+                                    <input type="hidden" name="downvotes" value="<%= e.getDownvotes()%>" id="<%= e.getDownvotes()%>">
+                                    <input type="hidden" name="operation" value="downvote"/>    
+                                    <p>Please provide the primary reason for this downvote!</p>
+
+                                    <div class="form-group">
+                                        <input type="radio" id="impc<%= e.getE_id()%>" name="problem" value="improper content" class="ml-2">
+                                        <label for="impc<%= e.getE_id()%>">Improper Content</label>
+
+                                        <input type="radio" id="fd<%= e.getE_id()%>" name="problem" value="false description" class="ml-2">
+                                        <label for="fd<%= e.getE_id()%>">False Description</label>
+
+                                        <input type="radio" id="id<%= e.getE_id()%>" name="problem" value="improper donor" class="ml-2">
+                                        <label for="id<%= e.getE_id()%>">Improper Donor</label>
+
+                                        <input type="radio" id="ot<%= e.getE_id()%>" name="problem" value="other" class="ml-2">
+                                        <label for="ot<%= e.getE_id()%>">Other</label>
+
+                                    </div>
+
+                                    <div class="form-group">
+                                        <textarea style="height: 300px;" class="form-control"placeholder="Any other comments" name="ac"></textarea>     
+                                    </div>
+                                    <!--                    <div class="form-group">
+                                                            <label for="vPath">Select Video!</label><BR>
+                                                            <input type="file" name="vPath" id="vPath" required/>
+                                                        </div>
+                                    
+                                    -->                   
+                                    <div class="container text-center">
+                                        <button class="btn btn-outline-success">Submit Feedback</button>
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+
+                                    </div>
+
+
+
+                                </form>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal fade" id="upvote-modal<%= e.getE_id()%>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-lg">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Your Valuable Feedback is Appreciated!</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <!---->
+                                <form action="upvoteServlet" method="post" id="<%= e.getE_id()%>">
+                                    <input type="hidden" name="d_email" value="<%= e.getD_email()%>" id="<%= e.getD_email()%>">
+                                    <input type="hidden" name="e_name" value="<%= e.getE_name()%>" id="<%= e.getE_name()%>">
+                                    <input type="hidden" name="e_id" value="<%= e.getE_id()%>" id="<%= e.getE_id()%>">
+                                    <input type="hidden" name="category" value="equipment">
+                                    <input type="hidden" name="upvotes" value="<%= e.getUpvotes()%>" id="<%= e.getUpvotes()%>">
+                                    <input type="hidden" name="operation" value="upvote"/>    
+                                    <p>Please provide any primary reason for this upvote!(Optional)</p>
+
+                                    <div class="form-group">
+                                        <textarea style="height: 300px;" class="form-control"placeholder="Any other comments" name="ac"></textarea>     
+                                    </div>
+
+                                    <div class="container text-center">
+                                        <button class="btn btn-outline-success">Submit Feedback</button>
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+
+                                    </div>
+
+
+
+                                </form>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <%
                         }
                     }

@@ -60,6 +60,8 @@
                             <div class="dropdown-menu position-absolute" aria-labelledby="dropdown03">
                                 <a class="dropdown-item" href="myupload.jsp">My Uploads</a>
                                 <a class="dropdown-item" href="myrequest.jsp">Approvals</a>
+                                <a class="dropdown-item" href="mygrievance.jsp">Grievances</a>
+                                <a class="dropdown-item" href="myResRequest.jsp">My Requests</a>
                                 <a class="dropdown-item" href="index.html">Logout</a>
                             </div>
                         </li>
@@ -81,6 +83,8 @@
                     <th>Resource Name</th>
                     <th>Request Status</th>
                     <th>Accept/Reject</th>
+                    <th>Primary Feedback</th>
+                    <th>Detailed Feedback</th>
                 </tr>
                 <%
                     for (Request req : list) {
@@ -107,8 +111,47 @@
                         </form>
                     </td>
                     <%
+                    } else {
+                    %>
+                    <td></td>
+                    <%
                         }
                     %>
+                    <%
+                        if (req.getP_feedback() != null) {
+                    %>
+                    <td><%= req.getP_feedback()%></td>
+                    
+                <%
+                    }
+                %>
+
+                <%
+                    if (req.getFeedback() != null) {
+                %>
+                <div class="modal fade" id="fb<%=req.getReq_id()%>" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLongTitle">Feedback</h5>
+                                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <%=req.getFeedback()%>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <td><a href="#" data-bs-toggle="modal" data-bs-target="#fb<%=req.getReq_id()%>">Click here to view Feedback!</a></td>
+                
+                <%
+                    }
+                %>
                 </tr>
                 <%                        }
                     }

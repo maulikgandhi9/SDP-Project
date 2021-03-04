@@ -65,6 +65,8 @@ and open the template in the editor.
                             <div class="dropdown-menu position-absolute" aria-labelledby="dropdown03">
                                 <a class="dropdown-item" href="myupload.jsp">My Uploads</a>
                                 <a class="dropdown-item" href="myrequest.jsp">Approvals</a>
+                                <a class="dropdown-item" href="mygrievance.jsp">Grievances</a>
+                                <a class="dropdown-item" href="myResRequest.jsp">My Requests</a>
                                 <a class="dropdown-item" href="index.html">Logout</a>
                             </div>
                         </li>

@@ -90,6 +90,8 @@
                             <div class="dropdown-menu position-absolute" aria-labelledby="dropdown03">
                                 <a class="dropdown-item" href="myupload.jsp">My Uploads</a>
                                 <a class="dropdown-item" href="myrequest.jsp">Approvals</a>
+                                <a class="dropdown-item" href="mygrievance.jsp">Grievances</a>
+                                <a class="dropdown-item" href="myResRequest.jsp">My Requests</a>
                                 <a class="dropdown-item" href="index.html">Logout</a>
                             </div>
                         </li>
@@ -256,14 +258,70 @@
                                 <div class="card">
                                     <!--<input type="submit" class="btn btn-success" value="Want it" onclick=" return swal('Confirmation' ,'Are you sure you want to request?',{buttons: ['Oh noez!', 'Aww yiss!'],})"></input>-->
                                     <input type="button" class="btn btn-success getbtn_book"  id="<%= b.getB_id()%>" value="Want it"></input>
-
-
                                 </div>
                             </form>
+                            <a class="text-primary downbtn mr-5" style="font-size: 110%" id="<%= b.getB_id()%>s" >Helpful<i class="fa fa-thumbs-up"> <%= b.getUpvotes()%></i></a> 
+                            <a class="text-danger downbtn ml-5" data-bs-toggle="modal" data-bs-target="#downvote-modal<%= b.getB_id()%>" style="font-size: 110%" id="<%= b.getB_id()%>s" >Spam<i class="fa fa-thumbs-down"> <%= b.getDownvotes()%></i></a> 
                         </div>
                     </div>
                 </div>
+                <div class="modal fade" id="downvote-modal<%= b.getB_id()%>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-lg">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Your Valuable Feedback is Appreciated!</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <!---->
+                                <form action="downvoteServlet" method="post" id="<%= b.getB_id()%>">
+                                    <input type="hidden" name="d_email" value="<%= b.getD_email()%>" id="<%= b.getD_email()%>">
+                                    <input type="hidden" name="b_name" value="<%= b.getB_name()%>" id="<%= b.getB_name()%>">
+                                    <input type="hidden" name="b_id" value="<%= b.getB_id()%>" id="<%= b.getB_id()%>">
+                                    <input type="hidden" name="category" value="book">
+                                    <input type="hidden" name="dept" value="<%=b.getB_dept()%>" id="<%=b.getB_dept()%>">
+                                    <input type="hidden" name="downvotes" value="<%= b.getDownvotes()%>" id="<%= b.getDownvotes()%>">
+                                    <input type="hidden" name="operation" value="downvote"/>    
+                                    <p>Please provide the primary reason for this downvote!</p>
 
+                                    <div class="form-group">
+                                        <input type="radio" id="impc<%= b.getB_id()%>" name="problem" value="improper content" class="ml-2">
+                                        <label for="impc<%= b.getB_id()%>">Improper Content</label>
+
+                                        <input type="radio" id="fd<%= b.getB_id()%>" name="problem" value="false description" class="ml-2">
+                                        <label for="fd<%= b.getB_id()%>">False Description</label>
+
+                                        <input type="radio" id="id<%= b.getB_id()%>" name="problem" value="improper donor" class="ml-2">
+                                        <label for="id<%= b.getB_id()%>">Improper Donor</label>
+
+                                        <input type="radio" id="ot<%= b.getB_id()%>" name="problem" value="other" class="ml-2">
+                                        <label for="ot<%= b.getB_id()%>">Other</label>
+
+                                    </div>
+
+                                    <div class="form-group">
+                                        <textarea style="height: 300px;" class="form-control"placeholder="Any other comments" name="ac"></textarea>     
+                                    </div>
+                                    <!--                    <div class="form-group">
+                                                            <label for="vPath">Select Video!</label><BR>
+                                                            <input type="file" name="vPath" id="vPath" required/>
+                                                        </div>
+                                    
+                                    -->                   
+                                    <div class="container text-center">
+                                        <button class="btn btn-outline-success">Submit Feedback</button>
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+
+                                    </div>
+
+
+
+                                </form>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <%
                         }
                     }

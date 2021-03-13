@@ -11,17 +11,26 @@ var videoDOM = document.querySelectorAll("video");
 for (let i of videoDOM) {
     console.log(i);
     i.addEventListener('mouseenter', () => toggle(i));
-    i.addEventListener('mouseleave',() => toggle(i));
+    i.addEventListener('mouseleave', () => toggle(i));
 }
 
 var toggle1 = false;
-function toggle(i){
+function toggle(i) {
     toggle1 = !toggle1;
-
-    if(toggle1)
+    if (toggle1) {
         i.setAttribute('controls', true);
-    else {
+    } else {
         i.removeAttribute('controls');
-        
+
     }
-}   
+}
+
+//$('.video').parent().click(function () {
+//    if ($(this).children(".video").get(0).paused) {
+//        $(this).children(".video").get(0).play();
+//        $(this).children(".playpause").fadeOut();
+//    } else {
+//        $(this).children(".video").get(0).pause();
+//        $(this).children(".playpause").fadeIn();
+//    }
+//});

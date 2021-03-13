@@ -83,6 +83,7 @@
                                 <a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#add-book-modal" href="#">Book</a>
                                 <a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#add-equipment-modal" href="#">Equipment</a>
                                 <a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#add-video-modal" href="#">Video</a>
+                                <a class="dropdown-item" data-toggle="modal" data-target="#add-sm-modal" href="#">Study Material</a>
                             </div>
                         </li>
                         <li class="nav-item dropdown">
@@ -197,35 +198,7 @@
         <!--</nav>-->
 
         <div class="container">
-            <!--            <div class="row mt-3">
-                            <div class="col-lg-12">
-                                <div class="card h-60" data-bs-toggle="modal" data-bs-target="#add-book-modal">
-                                    <div class="card-body text-center">
-                                        <div class="container">
-                                            <img style="max-width: 200px; margin-left: -5px"class="img-fluid rounded-circle" src="plus.jpg" alt="add">
-                                        </div>
-                                        <p class="mt-2">Click here to upload a book!</p>
-                                        <h1 class="text-uppercase text-muted">Books</h1>
-                                    </div>
-                                </div>
-                            </div>-->
-            <!--                <div class="col-lg-6">
-                                <div class="card" data-bs-toggle="modal" data-bs-target="#add-equipment-modal">
-                                    <div class="card-body text-center">
-                                        <div class="container">
-                                            <img style="max-width: 200px; margin-left: -5px"class="img-fluid rounded-circle" src="plus.jpg" alt="add">
-                                        </div>
-                                        <p class="mt-2">Click here to upload an equipment!</p>
-                                        <h1 class="text-uppercase text-muted">Equipments</h1>
-                                    </div>
-                                </div>
-                            </div>-->
-            <!--</div>-->
-
-            <!--<div class="btn-group" style="width:100%">-->
-            <!--<button class="btn btn-outline-danger active"style="width:50%">Books</button>-->
-            <!--<button class="btn btn-outline-danger"style="width:50%">Equipments</button>-->
-            <!--</div>-->
+           
             <%
                 bookDAO bd = new bookDAO(FactoryProvider.getFactory());
                 List<Book> b_list = bd.getBooks();
@@ -497,6 +470,57 @@
                     <div class="container text-center">
                         <button class="btn btn-outline-success">Add Video</button>
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+
+                    </div>
+
+
+
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="add-sm-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Fill Video Details!</h5>
+                <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form action="bookOperationServlet" method="post" enctype="multipart/form-data">
+
+                    <input type="hidden" name="operation" value="addsm"/>
+                    <div class="form-group">
+                        <input type="text" class="form-control" name="s_name" placeholder="Enter title for pdf">
+
+                    </div>
+
+
+                    <div class="form-group">
+                        <label for="sPath">Select Study Material!(Please upload pdf format only)</label><BR>
+                        <input type="file" name="sPath" id="sPath" required/>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="branch">Choose Study Material Branch:</label>
+
+                        <select name="branch" id="branch">
+                            <option value="IT">IT</option>
+                            <option value="CE">CE</option>
+                            <option value="EC">EC</option>
+                            <option value="MH">MH</option>
+                            <option value="CL">CL</option>
+                            <option value="CH">CH</option>
+
+                        </select>
+                    </div>
+
+                    <div class="container text-center">
+                        <button class="btn btn-outline-success">Add Material</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
 
                     </div>
 

@@ -6,10 +6,12 @@
 
 import dao.bookDAO;
 import dao.equipmentDAO;
+import dao.smDAO;
 import dao.videoDAO;
 import entities.Book;
 import entities.Equipment;
 import entities.Video;
+import entities.studyMaterial;
 import helper.FactoryProvider;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -110,7 +112,7 @@ public class deletePost extends HttpServlet {
                         + "window.location.href='myupload.jsp'});");
 //                out.println("location='bookLanding.jsp';");
                 out.println("</script>");
-            }else if (category.equals("video")) {
+            } else if (category.equals("video")) {
 
                 Video v = new Video();
 
@@ -119,13 +121,42 @@ public class deletePost extends HttpServlet {
                 v.setV_thumbnail(request.getParameter("v_image"));
                 v.setV_path(request.getParameter("v_path"));
                 v.setV_name(request.getParameter("v_name"));
-                String query = String.format("delete from app.video where v_name='%s' and d_email='%s' and v_path='%s' and v_thumbnail='%s'", v.getV_name(), v.getD_email(), v.getV_path(),v.getV_thumbnail());
+                String query = String.format("delete from app.video where v_name='%s' and d_email='%s' and v_path='%s' and v_thumbnail='%s'", v.getV_name(), v.getD_email(), v.getV_path(), v.getV_thumbnail());
 
                 PreparedStatement pst = con.prepareStatement(query);
 //                pst.setInt(1, Integer.parseInt(request.getParameter("e_id")));
 //                pst.executeUpdate();
                 videoDAO vd = new videoDAO(FactoryProvider.getFactory());
                 vd.deleteVideo(v);
+                out.println(".");
+                out.println("<script src='https://unpkg.com/sweetalert/dist/sweetalert.min.js'></script>");
+                out.println("<script type=\"text/javascript\">");
+//                out.println("swal('Oops!','You have already requested for this resource','warning');");
+                out.println("swal({"
+                        + "title: 'Success!',"
+                        + "text: 'Video deleted Successfully',"
+                        + "icon: 'success',})"
+                        + ".then(function(){"
+                        + "window.location.href='myupload.jsp'});");
+//                out.println("location='bookLanding.jsp';");
+                out.println("</script>");
+            } else if (category.equals("sm")) {
+                studyMaterial s = new studyMaterial();
+
+                s.setS_id(Integer.parseInt(request.getParameter("s_id")));
+                s.setD_email(request.getParameter("d_email"));
+                s.setS_path(request.getParameter("s_path"));
+                s.setS_name(request.getParameter("s_name"));
+                String query = String.format("delete from app.studyMaterial where s_name='%s' and d_email='%s' and s_path='%s'", s.getS_name(), s.getD_email(), s.getS_path());
+
+                PreparedStatement pst = con.prepareStatement(query);
+
+                
+//                    pst.executeUpdate();
+                
+
+                smDAO sd = new smDAO(FactoryProvider.getFactory());
+                sd.deleteSm(s);
                 out.println(".");
                 out.println("<script src='https://unpkg.com/sweetalert/dist/sweetalert.min.js'></script>");
                 out.println("<script type=\"text/javascript\">");

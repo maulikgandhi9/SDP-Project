@@ -6,10 +6,12 @@
 
 import dao.bookDAO;
 import dao.equipmentDAO;
+import dao.smDAO;
 import dao.videoDAO;
 import entities.Book;
 import entities.Equipment;
 import entities.Video;
+import entities.studyMaterial;
 import helper.FactoryProvider;
 import java.io.File;
 import java.io.FileInputStream;
@@ -191,6 +193,70 @@ public class bookOperationServlet extends HttpServlet {
                         + "window.location.href='myupload.jsp'});");
 //                out.println("location='bookLanding.jsp';");
                 out.println("</script>");
+            } else if (op.trim().equals("addsm")) {
+                String s_name = (String) request.getParameter("s_name");
+                Part part = request.getPart("sPath");
+                String email = (String) session.getAttribute("email");
+                String dept = (String) request.getParameter("branch");
+
+                studyMaterial s = new studyMaterial();
+                s.setS_name(s_name);
+                s.setD_email(email);
+                s.setS_dept(dept);
+                String validate = part.getSubmittedFileName().substring(part.getSubmittedFileName().length() - 3);
+                out.println(validate);
+                if (validate.equals("pdf")) {
+                    s.setS_path(part.getSubmittedFileName());
+                    s.setS_dept(dept);
+
+                    smDAO sd = new smDAO(FactoryProvider.getFactory());
+                    sd.saveSm(s);
+
+                    String path = request.getRealPath("/") + part.getSubmittedFileName();
+
+                    try {
+
+                        FileOutputStream fos = new FileOutputStream(path);
+                        InputStream is = part.getInputStream();
+
+                        //reading data from part
+                        byte data[] = new byte[is.available()];
+                        is.read(data);
+
+                        //writing the data
+                        fos.write(data);
+                        fos.close();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+
+                    out.println(".");
+                    out.println("<script src='https://unpkg.com/sweetalert/dist/sweetalert.min.js'></script>");
+                    out.println("<script type=\"text/javascript\">");
+//                out.println("swal('Oops!','You have already requested for this resource','warning');");
+                    out.println("swal({"
+                            + "title: 'Success!',"
+                            + "text: 'Study Material uploaded Successfully',"
+                            + "icon: 'success',})"
+                            + ".then(function(){"
+                            + "window.location.href='myupload.jsp'});");
+//                out.println("location='bookLanding.jsp';");
+                    out.println("</script>");
+                } else {
+                    out.println(".");
+                    out.println("<script src='https://unpkg.com/sweetalert/dist/sweetalert.min.js'></script>");
+                    out.println("<script type=\"text/javascript\">");
+//                out.println("swal('Oops!','You have already requested for this resource','warning');");
+                    out.println("swal({"
+                            + "title: 'Error!',"
+                            + "text: 'The file format is not pdf',"
+                            + "icon: 'warning',})"
+                            + ".then(function(){"
+                            + "window.location.href='welcomePage.jsp'});");
+//                out.println("location='bookLanding.jsp';");
+                    out.println("</script>");
+                }
+
             }
         }
     }

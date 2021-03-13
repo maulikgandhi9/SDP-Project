@@ -266,7 +266,7 @@ public class upvoteServlet extends HttpServlet {
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-            }else if (cat.equalsIgnoreCase("video")) {
+            } else if (cat.equalsIgnoreCase("video")) {
                 String v_name = request.getParameter("v_name");
                 int v_id = Integer.parseInt(request.getParameter("v_id"));
                 String d_email = request.getParameter("d_email");
@@ -275,7 +275,6 @@ public class upvoteServlet extends HttpServlet {
                 int uv = Integer.parseInt(request.getParameter("upvotes")) + 1;
 
                 String query = String.format("update app.video set upvotes=%d where v_id=%s", uv, v_id);
-
 
                 List<Upvote> list = ddao.getUpvotes();
                 boolean flag = false;
@@ -323,6 +322,155 @@ public class upvoteServlet extends HttpServlet {
                                 + "window.location.href='videoLanding.jsp'});");
                         out.println("</script>");
 
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+            } else if (cat.equalsIgnoreCase("sm")) {
+                String s_name = request.getParameter("s_name");
+
+                int s_id = Integer.parseInt(request.getParameter("s_id"));
+
+                String d_email = request.getParameter("d_email");
+
+                String ac = request.getParameter("ac");
+                String up_email = (String) session.getAttribute("email");
+
+                int uv = Integer.parseInt(request.getParameter("upvotes")) + 1;
+
+                String query = String.format("update app.studyMaterial set upvotes=%d where s_id=%s", uv, s_id);
+
+                List<Upvote> list = ddao.getUpvotes();
+                boolean flag = false;
+
+                for (Upvote i : list) {
+                    if (i.getUp_email().equals(up_email) && i.getRes_name().equals(s_name)) {
+                        flag = true;
+                        break;
+                    }
+                }
+                try {
+                    if (!flag) {
+                        PreparedStatement pst = con.prepareStatement(query);
+                        pst.executeUpdate();
+                        Upvote uvote = new Upvote();
+                        uvote.setRes_name(s_name);
+                        uvote.setCategory(cat);
+                        uvote.setD_email(d_email);
+                        uvote.setAc(ac);
+                        uvote.setUp_email(up_email);
+//                        out.println(c_email);
+//                    downvoteDAO ddao = new downvoteDAO(FactoryProvider.getFactory());
+                        ddao.saveUpvote(uvote);
+                        out.println(".");
+                        out.println("<script src='https://unpkg.com/sweetalert/dist/sweetalert.min.js'></script>");
+                        out.println("<script type=\"text/javascript\">");
+                        if (u_dept.equalsIgnoreCase("it")) {
+                            out.println("swal({"
+                                    + "title: 'Success!',"
+                                    + "text: 'You have successfully upvoted this resource',"
+                                    + "icon: 'success',})"
+                                    + ".then(function(){"
+                                    + "window.location.href='itSM.jsp'});");
+                            out.println("</script>");
+                        } else if (u_dept.equalsIgnoreCase("ce")) {
+                            out.println("swal({"
+                                    + "title: 'Success!',"
+                                    + "text: 'You have successfully upvoted this resource',"
+                                    + "icon: 'success',})"
+                                    + ".then(function(){"
+                                    + "window.location.href='ceSM.jsp'});");
+                            out.println("</script>");
+                        } else if (u_dept.equalsIgnoreCase("ec")) {
+                            out.println("swal({"
+                                    + "title: 'Success!',"
+                                    + "text: 'You have successfully upvoted this resource',"
+                                    + "icon: 'success',})"
+                                    + ".then(function(){"
+                                    + "window.location.href='ecSM.jsp'});");
+                            out.println("</script>");
+                        } else if (u_dept.equalsIgnoreCase("ch")) {
+                            out.println("swal({"
+                                    + "title: 'Success!',"
+                                    + "text: 'You have successfully upvoted this resource',"
+                                    + "icon: 'success',})"
+                                    + ".then(function(){"
+                                    + "window.location.href='chSM.jsp'});");
+                            out.println("</script>");
+                        } else if (u_dept.equalsIgnoreCase("cl")) {
+                            out.println("swal({"
+                                    + "title: 'Success!',"
+                                    + "text: 'You have successfully upvoted this resource',"
+                                    + "icon: 'success',})"
+                                    + ".then(function(){"
+                                    + "window.location.href='clSM.jsp'});");
+                            out.println("</script>");
+                        } else if (u_dept.equalsIgnoreCase("mh")) {
+                            out.println("swal({"
+                                    + "title: 'Success!',"
+                                    + "text: 'You have successfully upvoted this resource',"
+                                    + "icon: 'success',})"
+                                    + ".then(function(){"
+                                    + "window.location.href='mhSM.jsp'});");
+                            out.println("</script>");
+                        }
+
+                    } else {
+
+                        out.println(".");
+                        out.println("<script src='https://unpkg.com/sweetalert/dist/sweetalert.min.js'></script>");
+                        out.println("<script type=\"text/javascript\">");
+                        if (u_dept.equalsIgnoreCase("it")) {
+                            out.println("swal({"
+                                    + "title: 'Oops!',"
+                                    + "text: 'You have already upvoted this resource',"
+                                    + "icon: 'warning',})"
+                                    + ".then(function(){"
+                                    + "window.location.href='itSM.jsp'});");
+                            out.println("</script>");
+                        } else if (u_dept.equalsIgnoreCase("ce")) {
+                            out.println("swal({"
+                                    + "title: 'Oops!',"
+                                    + "text: 'You have already upvoted this resource',"
+                                    + "icon: 'warning',})"
+                                    + ".then(function(){"
+                                    + "window.location.href='ceSM.jsp'});");
+                            out.println("</script>");
+                        } else if (u_dept.equalsIgnoreCase("ec")) {
+                            out.println("swal({"
+                                    + "title: 'Oops!',"
+                                    + "text: 'You have already upvoted this resource',"
+                                    + "icon: 'warning',})"
+                                    + ".then(function(){"
+                                    + "window.location.href='ecSM.jsp'});");
+                            out.println("</script>");
+                        } else if (u_dept.equalsIgnoreCase("ch")) {
+                            out.println("swal({"
+                                    + "title: 'Oops!',"
+                                    + "text: 'You have already upvoted this resource',"
+                                    + "icon: 'warning',})"
+                                    + ".then(function(){"
+                                    + "window.location.href='chSM.jsp'});");
+                            out.println("</script>");
+                        } else if (u_dept.equalsIgnoreCase("cl")) {
+                            out.println("swal({"
+                                    + "title: 'Oops!',"
+                                    + "text: 'You have already upvoted this resource',"
+                                    + "icon: 'warning',})"
+                                    + ".then(function(){"
+                                    + "window.location.href='clSM.jsp'});");
+                            out.println("</script>");
+                        } else if (u_dept.equalsIgnoreCase("mh")) {
+                            out.println("swal({"
+                                    + "title: 'Oops!',"
+                                    + "text: 'You have already upvoted this resource',"
+                                    + "icon: 'warning',})"
+                                    + ".then(function(){"
+                                    + "window.location.href='mhSM.jsp'});");
+                            out.println("</script>");
+
+                        }
                     }
                 } catch (Exception e) {
                     e.printStackTrace();

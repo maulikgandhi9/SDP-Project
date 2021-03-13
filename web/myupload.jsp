@@ -4,6 +4,8 @@
     Author     : maulik
 --%>
 
+<%@page import="entities.studyMaterial"%>
+<%@page import="dao.smDAO"%>
 <%@page import="entities.Video"%>
 <%@page import="dao.videoDAO"%>
 <%@page import="entities.Equipment"%>
@@ -63,6 +65,7 @@
                                 <a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#add-book-modal" href="#">Book</a>
                                 <a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#add-equipment-modal" href="#">Equipment</a>
                                 <a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#add-video-modal" href="#">Video</a>
+                                <a class="dropdown-item" data-toggle="modal" data-target="#add-sm-modal" href="#">Study Material</a>
                             </div>
                         </li>
                         <li class="nav-item dropdown">
@@ -217,6 +220,51 @@
             </div>
         </div>
 
+        <div class="container">
+            <h1 class="mt-5 text-center text-warning bg-dark">Study Materials</h1>
+            <%  smDAO sd = new smDAO(FactoryProvider.getFactory());
+                List<studyMaterial> s_list = sd.getSm();
+            %>
+
+            <div class="row">
+                <%
+                    for (studyMaterial s : s_list) {
+                        if (s.getD_email().equals(session.getAttribute("email"))) {
+                %>
+                <div class="col-lg-4 mt-4">
+                    <div class="card mt-4 mb-2 h-70">
+
+                        <div class="card-body">
+                                <embed style="height: 250px; width: 350px;" src="<%= s.getS_path()%>" style="max-height: 350px; max-width: 100%; width: auto" class="card-image-top" alt="<%= s.getS_name()%>">
+                            <h5 class=" mt-2 text-center card-title"><%= s.getS_name()%></h5>
+
+                        </div>
+
+                        <div class="card-footer text-center">
+                            <form method="post" action="deletePost" id="<%= s.getS_id()%>">
+                                <input type="hidden" name="d_email" value="<%= s.getD_email()%>">
+                                <input type="hidden" name="s_name" value="<%= s.getS_name()%>">
+                                <input type="hidden" name="s_id" value="<%= s.getS_id()%>">
+                                <input type="hidden" name="s_path" value="<%= s.getS_path()%>">
+                                <input type="hidden" name="category" value="sm">
+                                <input type="button" class="btn btn-danger delBook" id="<%= s.getS_id()%>" value="Delete this Material"></input>
+
+                                <!--<input type="button" onclick="return confirm('Are you sure you want to delete this book?')" class="btn btn-danger" value="Delete this book"></input>-->
+                            </form>
+                        </div>
+
+
+                    </div>
+                </div>
+
+                <%
+                        }
+                    }
+
+                %>
+            </div>
+        </div>
+
         <div class="modal fade" id="add-book-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-lg">
                 <div class="modal-content">
@@ -334,6 +382,56 @@
                             <div class="container text-center">
                                 <button class="btn btn-outline-success">Add Video</button>
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+
+                            </div>
+
+
+
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="add-sm-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Fill Video Details!</h5>
+                        <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form action="bookOperationServlet" method="post" enctype="multipart/form-data">
+
+                            <input type="hidden" name="operation" value="addsm"/>
+                            <div class="form-group">
+                                <input type="text" class="form-control" name="s_name" placeholder="Enter title for pdf">
+
+                            </div>
+
+
+                            <div class="form-group">
+                                <label for="sPath">Select Study Material!(Please upload pdf format only)</label><BR>
+                                <input type="file" name="sPath" id="sPath" required/>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="branch">Choose Study Material Branch:</label>
+
+                                <select name="branch" id="branch">
+                                    <option value="IT">IT</option>
+                                    <option value="CE">CE</option>
+                                    <option value="EC">EC</option>
+                                    <option value="MH">MH</option>
+                                    <option value="CL">CL</option>
+                                    <option value="CH">CH</option>
+
+                                </select>
+                            </div>
+
+                            <div class="container text-center">
+                                <button class="btn btn-outline-success">Add Material</button>
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
 
                             </div>
 

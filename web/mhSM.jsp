@@ -4,6 +4,8 @@
     Author     : maulik
 --%>
 
+<%@page import="entities.studyMaterial"%>
+<%@page import="dao.smDAO"%>
 <%@page import="dao.equipmentDAO"%>
 <%@page import="entities.Equipment"%>
 <%@page import="helper.Helper"%>
@@ -15,7 +17,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Book Landing</title>
+        <title>Study Materials</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -25,16 +27,19 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
         <link rel="stylesheet" href="assets/css/font-awesome.min.css">
-
+        <!--<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">-->
         <link rel="stylesheet" href="assets/css/font-awesome.min.css">
 
 
 
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
-        <link rel="stylesheet" href="bookLandingCSS.css">
+        <link rel="stylesheet" href="smCSS.css">
         <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-
+        <script
+            src="https://code.jquery.com/jquery-3.3.1.min.js"
+            integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+        crossorigin="anonymous"></script>
 
 
 
@@ -84,6 +89,7 @@
                                 <a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#add-equipment-modal" href="#">Equipment</a>
                                 <a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#add-video-modal" href="#">Video</a>
                                 <a class="dropdown-item" data-toggle="modal" data-target="#add-sm-modal" href="#">Study Material</a>
+
                             </div>
                         </li>
                         <li class="nav-item dropdown">
@@ -103,61 +109,9 @@
         <%
             String dept = (String) session.getAttribute("dept");
         %>
-        <nav class="navbar bg-light navbar-toggleable-md">
-            <div class="container">
-                <!--                <a class="navbar-brand" href="#">Center nav</a>
-                                <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarsExampleCenteredNav" aria-controls="navbarsExampleCenteredNav" aria-expanded="false" aria-label="Toggle navigation">
-                                    <span class="navbar-toggler-icon"></span>
-                                </button>    -->
 
-                <div class="collapse navbar-collapse navbar-collapse justify-content-md-center" id="navbarsExampleCenteredNav">
-                    <ul class="nav nav-tabs">
-                        <!--                        <li class="nav-item dropdown">
-                                                    <a class="nav-link dropdown-toggle" href="http://example.com" id="dropdown03" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Books</a>
-                                                    <div class="dropdown-menu position-absolute" aria-labelledby="dropdown03">
-                                                        <a class="dropdown-item" href="myupload.jsp">IT</a>
-                                                        <a class="dropdown-item" href="myrequest.jsp">CE</a>
-                                                        <a class="dropdown-item" href="index.html">EC</a>
-                                                    </div>
-                                                </li>-->
-                        <% if (dept.equalsIgnoreCase("it")) {
-                        %>
 
-                        <a class="nav-link active" href="itBooks.jsp">Books</a>
-                        <%
-                        } else if (dept.equalsIgnoreCase("ce")) {
-                        %>
-                        <a class="nav-link active" href="ceBooks.jsp">Books</a>
-                        <%
-                        } else if (dept.equalsIgnoreCase("ec")) {
-                        %>
-                        <a class="nav-link active" href="ecBooks.jsp">Books</a>
-                        <%
-                        } else if (dept.equalsIgnoreCase("mh")) {
-                        %>
-                        <a class="nav-link active" href="mhBooks.jsp">Books</a>
-                        <%
-                        } else if (dept.equalsIgnoreCase("cl")) {
-                        %>
-                        <a class="nav-link active" href="clBooks.jsp">Books</a>
-                        <%
-                        } else if (dept.equalsIgnoreCase("ch")) {
-                        %>
-                        <a class="nav-link active" href="chBooks.jsp">Books</a>
-                        <%
-                            }
-                        %>
-                        <li class="nav-item">
-                            <a class="nav-link" href="equipmentLanding.jsp">Equipments</a>
-                        </li>
-
-                    </ul>
-
-                </div>
-            </div>
-        </nav>
-
-        <nav class="navbar bg-light navbar-toggleable-md">
+        <nav class="navbar navbar-toggleable-md addtp">
             <div class="container">
                 <!--                <a class="navbar-brand" href="#">Center nav</a>
                                 <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarsExampleCenteredNav" aria-controls="navbarsExampleCenteredNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -167,23 +121,24 @@
                     <ul class="nav nav-pills nav-jusified">
 
                         <li class="nav-item">
-                            <a class="nav-link" href="ceBooks.jsp">CE</a>
+                            <a class="nav-link" href="ceSM.jsp">CE</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="itBooks.jsp">IT</a>
+                            <a class="nav-link" href="itSM.jsp">IT</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="ecBooks.jsp">EC</a>
+                            <a class="nav-link" href="ecSM.jsp">EC</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="mhBooks.jsp">MH</a>
+                            <a class="nav-link active" href="mhSM.jsp">MH</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="chBooks.jsp">CH</a>
+                            <a class="nav-link" href="chSM.jsp">CH</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link active" href="clBooks.jsp">CL</a>
+                            <a class="nav-link" href="clSM.jsp">CL</a>
                         </li>
+
 
                     </ul>
                     <!--                    <div class="btn-group">
@@ -199,38 +154,9 @@
         <!--</nav>-->
 
         <div class="container">
-            <!--            <div class="row mt-3">
-                            <div class="col-lg-12">
-                                <div class="card h-60" data-bs-toggle="modal" data-bs-target="#add-book-modal">
-                                    <div class="card-body text-center">
-                                        <div class="container">
-                                            <img style="max-width: 200px; margin-left: -5px"class="img-fluid rounded-circle" src="plus.jpg" alt="add">
-                                        </div>
-                                        <p class="mt-2">Click here to upload a book!</p>
-                                        <h1 class="text-uppercase text-muted">Books</h1>
-                                    </div>
-                                </div>
-                            </div>-->
-            <!--                <div class="col-lg-6">
-                                <div class="card" data-bs-toggle="modal" data-bs-target="#add-equipment-modal">
-                                    <div class="card-body text-center">
-                                        <div class="container">
-                                            <img style="max-width: 200px; margin-left: -5px"class="img-fluid rounded-circle" src="plus.jpg" alt="add">
-                                        </div>
-                                        <p class="mt-2">Click here to upload an equipment!</p>
-                                        <h1 class="text-uppercase text-muted">Equipments</h1>
-                                    </div>
-                                </div>
-                            </div>-->
-            <!--</div>-->
 
-            <!--<div class="btn-group" style="width:100%">-->
-            <!--<button class="btn btn-outline-danger active"style="width:50%">Books</button>-->
-            <!--<button class="btn btn-outline-danger"style="width:50%">Equipments</button>-->
-            <!--</div>-->
-            <%
-                bookDAO bd = new bookDAO(FactoryProvider.getFactory());
-                List<Book> b_list = bd.getBooks();
+            <%                smDAO sd = new smDAO(FactoryProvider.getFactory());
+                List<studyMaterial> s_list = sd.getSm();
             %>
             <!-- <div class="row mt-3 mx-2">-->
 
@@ -238,37 +164,28 @@
             <div class="row">
 
                 <%
-                    for (Book b : b_list) {
-                        if (!b.getD_email().equals(session.getAttribute("email")) && b.getB_dept().equalsIgnoreCase("cl")) {
+                    for (studyMaterial s : s_list) {
+                        if (!s.getD_email().equals(session.getAttribute("email")) && s.getS_dept().equalsIgnoreCase("mh")) {
                 %>
                 <div class="col-lg-4">
                     <div class="card mt-4 mb-2 h-100">
                         <div class="container text-center">
-                            <img src="<%= b.getB_image()%>" style="max-height: 350px; max-width: 100%; width: auto" class="card-image-top" alt="<%= b.getB_name()%>">
+                            <embed src="<%= s.getS_path()%>" style="max-height: 350px; max-width: 100%; width: auto" class="card-image-top" alt="<%= s.getS_name()%>">
                         </div> 
                         <div class="card-body">
-                            <h5 class="card-title"><%= b.getB_name()%></h5>
-                            <p class="card-text"><%= Helper.get20Words(b.getB_desc())%></p>
+                            <h5 class="card-title"><%= s.getS_name()%></h5>
                         </div>
 
                         <div class="card-footer text-center">
-                            <form method="post" action="smailRequest" id="<%= b.getB_id()%>">
-                                <input type="hidden" name="d_email" value="<%= b.getD_email()%>">
-                                <input type="hidden" name="b_name" value="<%= b.getB_name()%>">
-                                <input type="hidden" name="b_id" value="<%= b.getB_id()%>">
-                                <input type="hidden" name="category" value="book">
-                                <div class="card">
-                                    <!--<input type="submit" class="btn btn-success" value="Want it" onclick=" return swal('Confirmation' ,'Are you sure you want to request?',{buttons: ['Oh noez!', 'Aww yiss!'],})"></input>-->
-                                    <input type="button" class="btn btn-success getbtn_book"  id="<%= b.getB_id()%>" value="Want it"></input>
-                                </div>
-                            </form>
-                            <a class="text-primary upbtn mr-5" data-bs-toggle="modal" data-bs-target="#upvote-modal<%= b.getB_id()%>" style="font-size: 110%" id="<%= b.getB_id()%>s"> Helpful<i class='fa fa-thumbs-up'> <%= b.getUpvotes()%></i></a> 
 
-                            <a class="text-danger downbtn ml-5" data-bs-toggle="modal" data-bs-target="#downvote-modal<%= b.getB_id()%>" style="font-size: 110%" id="<%= b.getB_id()%>s" >Spam<i class="fa fa-thumbs-down"> <%= b.getDownvotes()%></i></a> 
+                            <a class="text-primary upbtn mr-5" data-bs-toggle="modal" data-bs-target="#upvote-modal<%= s.getS_id()%>" style="font-size: 110%" id="<%= s.getS_id()%>s"> Helpful<i class='fa fa-thumbs-up'> <%= s.getUpvotes()%></i></a> 
+
+                            <a class="text-danger downbtn ml-5" data-bs-toggle="modal" data-bs-target="#downvote-modal<%= s.getS_id()%>" style="font-size: 110%" id="<%= s.getS_id()%>s" >Spam<i class="fa fa-thumbs-down"> <%= s.getDownvotes()%></i></a> 
+
                         </div>
                     </div>
                 </div>
-                <div class="modal fade" id="downvote-modal<%= b.getB_id()%>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal fade" id="downvote-modal<%= s.getS_id()%>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div class="modal-dialog modal-lg">
                         <div class="modal-content">
                             <div class="modal-header">
@@ -277,28 +194,28 @@
                             </div>
                             <div class="modal-body">
                                 <!---->
-                                <form action="downvoteServlet" method="post" id="<%= b.getB_id()%>">
-                                    <input type="hidden" name="d_email" value="<%= b.getD_email()%>" id="<%= b.getD_email()%>">
-                                    <input type="hidden" name="b_name" value="<%= b.getB_name()%>" id="<%= b.getB_name()%>">
-                                    <input type="hidden" name="b_id" value="<%= b.getB_id()%>" id="<%= b.getB_id()%>">
-                                    <input type="hidden" name="category" value="book">
-                                    <input type="hidden" name="dept" value="<%=b.getB_dept()%>" id="<%=b.getB_dept()%>">
-                                    <input type="hidden" name="downvotes" value="<%= b.getDownvotes()%>" id="<%= b.getDownvotes()%>">
+                                <form action="downvoteServlet" method="post" id="<%= s.getS_id()%>">
+                                    <input type="hidden" name="d_email" value="<%= s.getD_email()%>" id="<%= s.getD_email()%>">
+                                    <input type="hidden" name="s_name" value="<%= s.getS_name()%>" id="<%= s.getS_name()%>">
+                                    <input type="hidden" name="s_id" value="<%= s.getS_id()%>" id="<%= s.getS_id()%>">
+                                    <input type="hidden" name="category" value="sm">
+                                    <input type="hidden" name="dept" value="<%=s.getS_dept()%>" id="<%=s.getS_dept()%>">
+                                    <input type="hidden" name="downvotes" value="<%= s.getDownvotes()%>" id="<%= s.getDownvotes()%>">
                                     <input type="hidden" name="operation" value="downvote"/>    
                                     <p>Please provide the primary reason for this downvote!</p>
 
                                     <div class="form-group">
-                                        <input type="radio" id="impc<%= b.getB_id()%>" name="problem" value="improper content" class="ml-2">
-                                        <label for="impc<%= b.getB_id()%>">Improper Content</label>
+                                        <input type="radio" id="impc<%= s.getS_id()%>" name="problem" value="improper content" class="ml-2">
+                                        <label for="impc<%= s.getS_id()%>">Improper Content</label>
 
-                                        <input type="radio" id="fd<%= b.getB_id()%>" name="problem" value="false description" class="ml-2">
-                                        <label for="fd<%= b.getB_id()%>">False Description</label>
+                                        <input type="radio" id="fd<%= s.getS_id()%>" name="problem" value="false description" class="ml-2">
+                                        <label for="fd<%= s.getS_id()%>">False Description</label>
 
-                                        <input type="radio" id="id<%= b.getB_id()%>" name="problem" value="improper donor" class="ml-2">
-                                        <label for="id<%= b.getB_id()%>">Improper Donor</label>
+                                        <input type="radio" id="id<%= s.getS_id()%>" name="problem" value="improper donor" class="ml-2">
+                                        <label for="id<%= s.getS_id()%>">Improper Donor</label>
 
-                                        <input type="radio" id="ot<%= b.getB_id()%>" name="problem" value="other" class="ml-2">
-                                        <label for="ot<%= b.getB_id()%>">Other</label>
+                                        <input type="radio" id="ot<%= s.getS_id()%>" name="problem" value="other" class="ml-2">
+                                        <label for="ot<%= s.getS_id()%>">Other</label>
 
                                     </div>
 
@@ -325,7 +242,8 @@
                         </div>
                     </div>
                 </div>
-                <div class="modal fade" id="upvote-modal<%= b.getB_id()%>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+
+                <div class="modal fade" id="upvote-modal<%= s.getS_id()%>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div class="modal-dialog modal-lg">
                         <div class="modal-content">
                             <div class="modal-header">
@@ -334,13 +252,13 @@
                             </div>
                             <div class="modal-body">
                                 <!---->
-                                <form action="upvoteServlet" method="post" id="<%= b.getB_id()%>">
-                                    <input type="hidden" name="d_email" value="<%= b.getD_email()%>" id="<%= b.getD_email()%>">
-                                    <input type="hidden" name="b_name" value="<%= b.getB_name()%>" id="<%= b.getB_name()%>">
-                                    <input type="hidden" name="b_id" value="<%= b.getB_id()%>" id="<%= b.getB_id()%>">
-                                    <input type="hidden" name="category" value="book">
-                                    <input type="hidden" name="dept" value="<%=b.getB_dept()%>" id="<%=b.getB_dept()%>">
-                                    <input type="hidden" name="upvotes" value="<%= b.getUpvotes()%>" id="<%= b.getUpvotes()%>">
+                                <form action="upvoteServlet" method="post" id="<%= s.getS_id()%>">
+                                    <input type="hidden" name="d_email" value="<%= s.getD_email()%>" id="<%= s.getD_email()%>">
+                                    <input type="hidden" name="s_name" value="<%= s.getS_name()%>" id="<%= s.getS_name()%>">
+                                    <input type="hidden" name="s_id" value="<%= s.getS_id()%>" id="<%= s.getS_id()%>">
+                                    <input type="hidden" name="category" value="sm">
+                                    <input type="hidden" name="dept" value="<%=s.getS_dept()%>" id="<%=s.getS_dept()%>">
+                                    <input type="hidden" name="upvotes" value="<%= s.getUpvotes()%>" id="<%= s.getUpvotes()%>">
                                     <input type="hidden" name="operation" value="upvote"/>    
                                     <p>Please provide any primary reason for this upvote!(Optional)</p>
 
@@ -366,6 +284,7 @@
                         }
                     }
                 %>
+
 
 
                 <!--</div>-->
@@ -417,6 +336,7 @@
 
                         </select>
                     </div>
+
                     <div class="container text-center">
                         <button class="btn btn-outline-success">Add Book</button>
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -561,6 +481,9 @@
         </div>
     </div>
 </div>
+
 <script src='request_confirmation.js'></script>
+<!--<script src='downvote_confirmation.js'></script>-->
+
 </body>
 </html>

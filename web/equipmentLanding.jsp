@@ -45,6 +45,7 @@
         <%
 //   HttpSession session = request.getSession();
             String name = (String) session.getAttribute("fname") + " " + (String) session.getAttribute("lname");
+            String email = (String) session.getAttribute("email");
         %>
         <!--<nav class="navbar navbar-dark bg-dark">-->
         <!--<a class="navbar-brand" href="welcomePage.jsp">Generosity</a>-->
@@ -111,7 +112,12 @@
                                 </button>    -->
                 <div class="collapse navbar-collapse navbar-collapse justify-content-md-center" id="navbarsExampleCenteredNav">
                     <ul class="nav nav-tabs">
-                        <% if (dept.equalsIgnoreCase("it")) {
+                        <%
+                            if (email.equals("adm@ddu.ac.in")) {
+                        %>
+                        <a class="nav-link" href="bookLanding.jsp">Books</a>
+
+                        <% } else if (dept.equalsIgnoreCase("it")) {
                         %>
 
                         <a class="nav-link" href="itBooks.jsp">Books</a>
@@ -193,8 +199,44 @@
                     equipmentDAO ed = new equipmentDAO(FactoryProvider.getFactory());
                     List<Equipment> e_list = ed.getEquipments();
                 %>
-
                 <%
+                    if (email.equals("adm@ddu.ac.in")) {
+                        for (Equipment e : e_list) {
+                %>
+                <div class="col-lg-4 mt-4">
+                    <div class="card mt-4 mb-2 h-100">
+                        <div class="container text-center">
+                            <img src="<%= e.getE_image()%>" style="max-height: 350px; max-width: 100%; width: auto" class="card-image-top" alt="<%= e.getE_name()%>">
+                        </div> 
+                        <div class="card-body">
+                            <h5 class="card-title"><%= e.getE_name()%></h5>
+                            <p class="card-text"><%= Helper.get20Words(e.getE_desc())%></p>
+                        </div>
+
+                        <div class="card-footer text-center">
+                            <form method="post" action="deletePost" id="<%= e.getE_id()%>">
+                                <input type="hidden" name="d_email" value="<%= e.getD_email()%>">
+                                <input type="hidden" name="b_name" value="<%= e.getE_name()%>">
+                                <input type="hidden" name="b_id" value="<%= e.getE_id()%>">
+                                <input type="hidden" name="category" value="equipment">
+                                <div class="card">
+                                    <!--<input type="submit" class="btn btn-success" value="Want it" onclick=" return swal('Confirmation' ,'Are you sure you want to request?',{buttons: ['Oh noez!', 'Aww yiss!'],})"></input>-->
+                                    <input type="button" class="btn btn-danger delEqu" id="<%= e.getE_id()%>"  value="Delete"></input>
+                                </div>
+                            </form>
+
+
+                        </div>
+                    </div>
+                </div>
+
+                
+                <%
+                        }
+                    }
+                %>
+
+                <% if(!email.equals("adm@ddu.ac.in")) {
                     for (Equipment e : e_list) {
                         if (!e.getD_email().equals(session.getAttribute("email"))) {
                 %>
@@ -322,6 +364,7 @@
                     </div>
                 </div>
                 <%
+                            }
                         }
                     }
                 %>
@@ -460,7 +503,7 @@
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Fill Video Details!</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Fill Study Material Details!</h5>
                 <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
@@ -507,5 +550,7 @@
     </div>
 </div>
 <script src='request_confirmation.js'></script>
+<script src='delete_confirmation.js'></script>
+
 </body>
 </html>

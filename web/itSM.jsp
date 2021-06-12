@@ -434,7 +434,7 @@
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Fill Video Details!</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Fill Study Material Details!</h5>
                 <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">

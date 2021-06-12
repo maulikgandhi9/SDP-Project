@@ -70,7 +70,7 @@ public class signup2 extends HttpServlet {
                 out.print(e);
             }
 
-            out.println("<html><head> <link rel=\"stylesheet\" href=\"https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css\">\n"
+            out.println("<html><head> <style>body{background-image: url('img_girl.jpg'); background-size=cover;}</style><link rel=\"stylesheet\" href=\"https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css\">\n"
                     + "</head><body>");
             out.println("<h1 align=\"center\">Signed up successfully</h1>");
             out.println("<div style=\"width:150px; margin:0 auto;\"><button type=\"button\" onclick=\"window.location.href='index.html';\" class=\"btn btn-primary\">Click here to login</button></div>");

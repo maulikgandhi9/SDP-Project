@@ -47,6 +47,8 @@
         <%
 //   HttpSession session = request.getSession();
             String name = (String) session.getAttribute("fname") + " " + (String) session.getAttribute("lname");
+            String email = (String) session.getAttribute("email");
+
         %>
 
 
@@ -106,10 +108,53 @@
                     videoDAO vd = new videoDAO(FactoryProvider.getFactory());
                     List<Video> v_list = vd.getVideos();
                 %>
+                <%
+                    if (email.equals("adm@ddu.ac.in")) {
+                        for (Video v : v_list) {
+                %>
+                <div class="col-lg-4 mt-4">
+
+
+                    <div class="card mt-4 mb-2 h-70">
+
+                        <div class="card-body">
+
+                            <video style="max-height: 1000px; max-width: 100%; width: auto" poster="<%= v.getV_thumbnail()%>">
+                                <source src="<%= v.getV_path()%>">
+                            </video>
+
+                        </div>
+
+                        <div class="card-footer text-center">
+                            <h5 class="card-title"><%= v.getV_name()%></h5>
+                        </div>
+
+                        <div class="card-footer text-center">
+                            <form method="post" action="deletePost" id="<%= v.getV_id()%>">
+                                <input type="hidden" name="d_email" value="<%= v.getD_email()%>">
+                                <input type="hidden" name="v_name" value="<%= v.getV_name()%>">
+                                <input type="hidden" name="v_id" value="<%= v.getV_id()%>">
+                                <input type="hidden" name="v_image" value="<%= v.getV_thumbnail()%>">
+                                <input type="hidden" name="v_path" value="<%= v.getV_path()%>">
+                                <input type="hidden" name="category" value="video">
+                                <input type="button" class="btn btn-danger delBook" id="<%= v.getV_id()%>" value="Delete"></input>
+
+                                <!--<input type="button" onclick="return confirm('Are you sure you want to delete this book?')" class="btn btn-danger" value="Delete this book"></input>-->
+                            </form>
+
+                        </div>
+
+                    </div>
+                </div>
+                <%
+                        }
+                    }
+                %>
 
                 <%
-                    for (Video v : v_list) {
-                        if (!v.getD_email().equals(session.getAttribute("email"))) {
+                    if (!email.equals("adm@ddu.ac.in")) {
+                        for (Video v : v_list) {
+                            if (!v.getD_email().equals(session.getAttribute("email"))) {
                 %>
                 <div class="col-lg-4 mt-4">
 
@@ -231,6 +276,7 @@
                     </div>
                 </div>
                 <%
+                            }
                         }
                     }
                 %>
@@ -369,7 +415,7 @@
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Fill Video Details!</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Fill Study Material Details!</h5>
                 <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
@@ -417,6 +463,7 @@
 </div>
 <script src='request_confirmation.js'></script>
 <script src='video.js'></script>
+<script src='delete_confirmation.js'></script>
 
 </body>
 </html>

@@ -15,8 +15,8 @@ public class sendMailReject {
         toEmail = user.getEmail();
 //        toEmail = "18ituos036@ddu.ac.in";
 
-        String fromEmail = "maulikgandhi9@gmail.com";
-        String password = "maulik@2001";
+        String fromEmail = "youremail";
+        String password = "yourpassword";
 
         try {
             Properties props = new Properties();

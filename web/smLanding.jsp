@@ -4,6 +4,8 @@
     Author     : maulik
 --%>
 
+<%@page import="entities.studyMaterial"%>
+<%@page import="dao.smDAO"%>
 <%@page import="entities.Video"%>
 <%@page import="dao.videoDAO"%>
 <%@page import="dao.equipmentDAO"%>
@@ -101,13 +103,13 @@
             <div class="row">
 
                 <%
-                    videoDAO vd = new videoDAO(FactoryProvider.getFactory());
-                    List<Video> v_list = vd.getVideos();
+                    smDAO sd = new smDAO(FactoryProvider.getFactory());
+                    List<studyMaterial> s_list = sd.getSm();
                 %>
 
                 <%
-                    for (Video v : v_list) {
-                        if (!v.getD_email().equals(session.getAttribute("email"))) {
+                    for (studyMaterial s : s_list) {
+
                 %>
                 <div class="col-lg-4 mt-4">
 
@@ -117,121 +119,35 @@
                         <div class="card-body">
 
 
-                            <video style="max-height: 1000px; max-width: 100%; width: auto" poster="<%= v.getV_thumbnail()%>">
-                                <source src="<%= v.getV_path()%>">
-                            </video>
+                            <div class="container text-center">
+                                <embed style="height: 250px; width: 350px;" src="<%= s.getS_path()%>" style="max-height: 350px; max-width: 100%; width: auto" class="card-image-top" alt="<%= s.getS_name()%>">
+                            </div> 
+                            <div class="card-body">
+                                <h5 class="card-title text-center"><%= s.getS_name()%></h5>
+                            </div>
 
 
                         </div>
+
+                        
 
                         <div class="card-footer text-center">
-                            <h5 class="card-title"><%= v.getV_name()%></h5>
-                        </div>
+                            <form action="deletePost" method="post" id="<%= s.getS_id()%>">
+                                <input type="hidden" name="d_email" value="<%= s.getD_email()%>" id="<%= s.getD_email()%>">
+                                <input type="hidden" name="v_name" value="<%= s.getS_name()%>" id="<%= s.getS_name()%>">
+                                <input type="hidden" name="v_id" value="<%= s.getS_id()%>" id="<%= s.getS_id()%>">
+                                <input type="hidden" name="category" value="sm">
 
-                        <div class="card-footer text-center">
+                                <input type="button" class="btn btn-danger delBook"  id="<%= s.getS_id()%>" value="Delete"></input>
+                            </form>
 
-                            <a class="text-primary upbtn mr-5" data-bs-toggle="modal" data-bs-target="#upvote-modal<%= v.getV_id()%>" style="font-size: 110%" id="<%= v.getV_id()%>s"> Helpful<i class='fa fa-thumbs-up'> <%= v.getUpvotes()%></i></a> 
-
-                            <a class="text-danger downbtn ml-5" data-bs-toggle="modal" data-bs-target="#downvote-modal<%= v.getV_id()%>" style="font-size: 110%" id="<%= v.getV_id()%>s" >Spam<i class="fa fa-thumbs-down"> <%= v.getDownvotes()%></i></a>  
                         </div>
 
                     </div>
                 </div>
-                <div class="modal fade" id="downvote-modal<%= v.getV_id()%>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                    <div class="modal-dialog modal-lg">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLabel">Your Valuable Feedback is Appreciated!</h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                            </div>
-                            <div class="modal-body">
-                                <!---->
-                                <form action="downvoteServlet" method="post" id="<%= v.getV_id()%>">
-                                    <input type="hidden" name="d_email" value="<%= v.getD_email()%>" id="<%= v.getD_email()%>">
-                                    <input type="hidden" name="v_name" value="<%= v.getV_name()%>" id="<%= v.getV_name()%>">
-                                    <input type="hidden" name="v_id" value="<%= v.getV_id()%>" id="<%= v.getV_id()%>">
-                                    <input type="hidden" name="category" value="video">
-                                    <input type="hidden" name="downvotes" value="<%= v.getDownvotes()%>" id="<%= v.getDownvotes()%>">
-                                    <input type="hidden" name="operation" value="downvote"/>    
-                                    <p>Please provide the primary reason for this downvote!</p>
 
-                                    <div class="form-group">
-                                        <input type="radio" id="impc<%= v.getV_id()%>" name="problem" value="improper content" class="ml-2">
-                                        <label for="impc<%= v.getV_id()%>">Improper Content</label>
-
-                                        <input type="radio" id="fd<%= v.getV_id()%>" name="problem" value="false description" class="ml-2">
-                                        <label for="fd<%= v.getV_id()%>">False Description</label>
-
-                                        <input type="radio" id="id<%= v.getV_id()%>" name="problem" value="improper donor" class="ml-2">
-                                        <label for="id<%= v.getV_id()%>">Improper Donor</label>
-
-                                        <input type="radio" id="ot<%= v.getV_id()%>" name="problem" value="other" class="ml-2">
-                                        <label for="ot<%= v.getV_id()%>">Other</label>
-
-                                    </div>
-
-                                    <div class="form-group">
-                                        <textarea style="height: 300px;" class="form-control"placeholder="Any other comments" name="ac"></textarea>     
-                                    </div>
-                                    <!--                    <div class="form-group">
-                                                            <label for="vPath">Select Video!</label><BR>
-                                                            <input type="file" name="vPath" id="vPath" required/>
-                                                        </div>
-                                    
-                                    -->                   
-                                    <div class="container text-center">
-                                        <button class="btn btn-outline-success">Submit Feedback</button>
-                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-
-                                    </div>
-
-
-
-                                </form>
-
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="modal fade" id="upvote-modal<%= v.getV_id()%>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                    <div class="modal-dialog modal-lg">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLabel">Your Valuable Feedback is Appreciated!</h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                            </div>
-                            <div class="modal-body">
-                                <!---->
-                                <form action="upvoteServlet" method="post" id="<%= v.getV_id()%>">
-                                    <input type="hidden" name="d_email" value="<%= v.getD_email()%>" id="<%= v.getD_email()%>">
-                                    <input type="hidden" name="v_name" value="<%= v.getV_name()%>" id="<%= v.getV_name()%>">
-                                    <input type="hidden" name="v_id" value="<%= v.getV_id()%>" id="<%= v.getV_id()%>">
-                                    <input type="hidden" name="category" value="video">
-                                    <input type="hidden" name="upvotes" value="<%= v.getUpvotes()%>" id="<%= v.getUpvotes()%>">
-                                    <input type="hidden" name="operation" value="upvote"/>    
-                                    <p>Please provide any primary reason for this upvote!(Optional)</p>
-
-                                    <div class="form-group">
-                                        <textarea style="height: 300px;" class="form-control"placeholder="Any other comments" name="ac"></textarea>     
-                                    </div>
-
-                                    <div class="container text-center">
-                                        <button class="btn btn-outline-success">Submit Feedback</button>
-                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-
-                                    </div>
-
-
-
-                                </form>
-
-                            </div>
-                        </div>
-                    </div>
-                </div>
                 <%
-                        }
+
                     }
                 %>
                 <!--</div>-->
@@ -329,7 +245,7 @@
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Fill Video Details!</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Fill Study Material Details!</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
@@ -366,6 +282,7 @@
 </div>
 <script src='request_confirmation.js'></script>
 <script src='video.js'></script>
+<script src='delete_confirmation.js'></script>
 
 </body>
 </html>

@@ -20,8 +20,8 @@ public class sendMail {
         String toEmail;
         toEmail = user.getEmail();
 
-        String fromEmail = "maulikgandhi9@gmail.com";
-        String password = "maulik@2001";
+        String fromEmail = "youremail";
+        String password = "yourpassword";
 
         try {
             Properties props = new Properties();

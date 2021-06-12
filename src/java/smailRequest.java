@@ -45,6 +45,7 @@ public class smailRequest extends HttpServlet {
 
             Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/app?zeroDateTimeBehavior=convertToNull", "root", "");
             HttpSession session = request.getSession();
+
             String fname = (String) session.getAttribute("fname");
             String lname = (String) session.getAttribute("lname");
             String u_dept = (String) session.getAttribute("dept");
@@ -54,7 +55,6 @@ public class smailRequest extends HttpServlet {
             Book b = new Book();
             b.setB_name((String) request.getParameter("b_name"));
             sendMailRequest sm = new sendMailRequest();
-
             User user = new User(fname, lname, requester_email, d_email, u_dept);
             out.println(".");
 
@@ -69,8 +69,8 @@ public class smailRequest extends HttpServlet {
                     break;
                 }
             }
-
             if (flag) {
+
                 out.println("<script src='https://unpkg.com/sweetalert/dist/sweetalert.min.js'></script>");
                 out.println("<script type=\"text/javascript\">");
 //                out.println("swal('Oops!','You have already requested for this resource','warning');");
@@ -124,13 +124,14 @@ public class smailRequest extends HttpServlet {
                     out.println("</script>");
                 }
             } else {
-                try {
 
+                try {
                     boolean test = sm.sendEmail(user, b);
 //                    boolean e = sm.sendEmail(user, b);
 //                                               out.println("hello" + test);
 
-                    if (test) {
+                     if(test){
+//                      out.println(test);
 //                    HttpSession session = request.getSession();
 //                    session.setAttribute("authcode", user);
 //                    response.sendRedirect("forgotVerify.jsp");

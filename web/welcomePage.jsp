@@ -34,6 +34,7 @@ and open the template in the editor.
         <%
             //   HttpSession session = request.getSession();
             String name = (String) session.getAttribute("fname") + " " + (String) session.getAttribute("lname");
+            String email = (String) session.getAttribute("email");
         %>
         <nav class="navbar navbar-inverse navbar-toggleable-md">
             <div class="container">
@@ -95,10 +96,13 @@ and open the template in the editor.
                     <div class="carousel-item active">
                         <img src="book.jpg" alt="Books and Equipments" style="width: 100%">
                         <div class="carousel-caption">
+                            <%
+                                if (email.equals("adm@ddu.ac.in")) {
+                            %>
+                            <h3><a href="bookLanding.jsp">Books and Equipments</a></h3>
 
                             <%
-                                if (dept.equalsIgnoreCase("it")) {
-                            %>
+                            } else if (dept.equalsIgnoreCase("it")) {                  %>
 
                             <h3><a href="itBooks.jsp">Books and Equipments</a></h3>
                             <%
@@ -131,7 +135,12 @@ and open the template in the editor.
                         <img src="sm.jpg" alt="Study Materials" style="width: 100%">
                         <div class="carousel-caption">
                             <%
-                                if (dept.equalsIgnoreCase("it")) {
+                                if (email.equals("adm@ddu.ac.in")) {
+                            %>
+                            <h3><a href="smLanding.jsp">Study Materials</a></h3>
+
+                            <%
+                                }else if (dept.equalsIgnoreCase("it")) {
                             %>
 
                             <h3><a href="itSM.jsp">Study Materials</a></h3>
@@ -320,7 +329,7 @@ and open the template in the editor.
             <div class="modal-dialog modal-lg">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Fill Video Details!</h5>
+                        <h5 class="modal-title" id="exampleModalLabel">Fill Study Material Details!</h5>
                         <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
